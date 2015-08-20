@@ -28,4 +28,9 @@
         android:onClick="fourthRunnable"
         android:text="5 multiplication " />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/info_txt"/>
+
 </LinearLayout>

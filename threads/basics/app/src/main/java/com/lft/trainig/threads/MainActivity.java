@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.lft.trainig.threads.process.ProcessActivity;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (true) {
-            Intent intent = new Intent(this, ProcessActivity .class);
+            Intent intent = new Intent(this, ThreadHandlers2.class);
             startActivity(intent);
             this.finish();
             return;

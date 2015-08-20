@@ -29,6 +29,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".ThreadHandlers2"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".process.ProcessActivity"
             android:screenOrientation="portrait" />
     </application>

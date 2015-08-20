@@ -38,8 +38,19 @@ public class ThreadsHandlersActivity extends BaseActivity {
     }
 
     public void secondRunnable(View view) {
-        customThread.execute(secondRunnable);
+        //customThread.execute(secondRunnable);
+        //interruptThread();
+        minorRunnableTest();
+    }
 
+    private void minorRunnableTest() {
+        SomeOtherThread someOtherThread = new SomeOtherThread(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Runnable run");
+            }
+        });
+        someOtherThread.start();
     }
 
     public void thirdRunnable(View view) {
@@ -95,13 +106,34 @@ public class ThreadsHandlersActivity extends BaseActivity {
 
         @Override
         public void run() {
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 100; i++) {
                 System.out.println("2x" + i + "=" + 2 * i);
+                if (i == 40) {
+//                    try {
+//                        Thread.currentThread().join();
+//                        Thread.currentThread().interrupt();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+                    //interruptThread();
+                }
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    private void interruptThread() {
+        /**Works only when called from run() */
+        if (customThread != null) {
+            try {
+                customThread.join();
+                customThread.interrupt();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -150,6 +182,31 @@ public class ThreadsHandlersActivity extends BaseActivity {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+
+    public class SomeOtherThread extends Thread {
+        public SomeOtherThread(Runnable runnable) {
+            super(runnable);
+        }
+
+        @Override
+        public void run() {
+            System.out.println("Thread run");
+            //super.run();
+            for (int i = 0; i < 10; i++)
+                System.out.println(i);
+            /**First and foremost this will run always
+             * even though you provide runnable, but runnable to run
+             * , you must call super.run(), which will now execute the runnable,
+             * but if no super.run(), it will only call this run()*/
+            super.run();
+
+
+//            System.out.println("Thread run");
+//            Looper.prepare();
+//            Looper.loop();
         }
     }
 }

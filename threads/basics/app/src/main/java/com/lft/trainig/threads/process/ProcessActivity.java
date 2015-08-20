@@ -26,10 +26,15 @@ public class ProcessActivity extends BaseActivity {
     }
 
     public void makePrivateFolder(View view) {
+        createAnr();
         File file = getFilesDir();
         File newFile = new File(file, "demo/test");
         newFile.mkdirs();
+    }
 
+    private void createAnr() {
+        while (true)
+            System.out.println("Great");
     }
 
     public void makePublicFolder(View view) {
