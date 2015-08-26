@@ -6,9 +6,13 @@ import android.os.Looper;
 import android.view.View;
 
 /**
- * Created by laaptu on 8/12/15.
+ * A class which has
+ * <ol>
+ * <li>Single thread with custom handler</li>
+ * <li>Multiple runnables running on that single thread</li>
+ * </ol>
  */
-public class ThreadsHandlersActivity extends BaseActivity {
+public class SingleThreadMultipleRunnable extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_threadhandlers;
@@ -32,25 +36,18 @@ public class ThreadsHandlersActivity extends BaseActivity {
         customThread.start();
     }
 
-    public void startThread(View view) {
+    /**
+     * Button click listeners to pass different runnable</br>
+     * to the custom threads </br>
+     */
+
+    public void firstRunnable(View view) {
         customThread.execute(firstRunnable);
 
     }
 
     public void secondRunnable(View view) {
-        //customThread.execute(secondRunnable);
-        //interruptThread();
-        minorRunnableTest();
-    }
-
-    private void minorRunnableTest() {
-        SomeOtherThread someOtherThread = new SomeOtherThread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Runnable run");
-            }
-        });
-        someOtherThread.start();
+        customThread.execute(secondRunnable);
     }
 
     public void thirdRunnable(View view) {
@@ -62,6 +59,10 @@ public class ThreadsHandlersActivity extends BaseActivity {
     }
 
 
+    /**
+     * Custom thread with custom handler</br>
+     * The custom handler is responsible for delegating runnable tasks to the thread</br>
+     */
     public class CustomThread extends Thread {
         public Handler handler;
 
@@ -76,6 +77,7 @@ public class ThreadsHandlersActivity extends BaseActivity {
         public CustomThread(Runnable runnable) {
             super(runnable);
         }
+
 
         @Override
         public void run() {
@@ -102,38 +104,52 @@ public class ThreadsHandlersActivity extends BaseActivity {
         }
     }
 
-    public class FirstRunnable implements Runnable {
-
-        @Override
-        public void run() {
-            for (int i = 0; i < 100; i++) {
-                System.out.println("2x" + i + "=" + 2 * i);
-                if (i == 40) {
-//                    try {
-//                        Thread.currentThread().join();
-//                        Thread.currentThread().interrupt();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-                    //interruptThread();
-                }
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
+    /**
+     * Method to stop thread, if thread running logic is on run()</br>
+     * then this method needs to be called from that method for successful</br>
+     * stoppage
+     */
     private void interruptThread() {
-        /**Works only when called from run() */
+        /**Works only when called from run() of runnable or thread's run()*/
         if (customThread != null) {
             try {
                 customThread.join();
                 customThread.interrupt();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+
+    /**
+     * Set of different runnables which displays </br>
+     * multiplication tables of 2,3,4 and five respectively
+     */
+    public class FirstRunnable implements Runnable {
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 100; i++) {
+                System.out.println("2x" + i + "=" + 2 * i);
+                if (i == 10) {
+//                    try {
+//                        Thread.currentThread().join();
+//                        Thread.currentThread().interrupt();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+                    /**
+                     * Another important point to notice</br>
+                     * Thread join() and interrupt works </br>
+                     * only when called from run()*/
+                    interruptThread();
+                }
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -185,28 +201,4 @@ public class ThreadsHandlersActivity extends BaseActivity {
         }
     }
 
-
-    public class SomeOtherThread extends Thread {
-        public SomeOtherThread(Runnable runnable) {
-            super(runnable);
-        }
-
-        @Override
-        public void run() {
-            System.out.println("Thread run");
-            //super.run();
-            for (int i = 0; i < 10; i++)
-                System.out.println(i);
-            /**First and foremost this will run always
-             * even though you provide runnable, but runnable to run
-             * , you must call super.run(), which will now execute the runnable,
-             * but if no super.run(), it will only call this run()*/
-            super.run();
-
-
-//            System.out.println("Thread run");
-//            Looper.prepare();
-//            Looper.loop();
-        }
-    }
 }

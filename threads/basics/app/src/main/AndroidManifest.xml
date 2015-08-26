@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lft.trainig.threads">
+    package="com.lft.trainig.threads"
+    android:sharedUserId="com.lft">
+    <!-- The sharedUserID must be named on package name format like com.sth.sth
+    and other app (in our case staging flavor) must both share same shared user id-->
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -10,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.lft.trainig.threads.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -25,16 +28,29 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ThreadsHandlersActivity"
+            android:name=".SingleThreadMultipleRunnable"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ThreadHandlers2"
+            android:name=".multithread.ExecutorServiceMultiThreading"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".process.ProcessActivity"
+            android:name=".SingleThreadActionOnHandlers"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".process.ProcessFileSystemDemo"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".ipc.ProcessCommunicator"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SimpleThreadActivity"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

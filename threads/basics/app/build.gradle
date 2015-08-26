@@ -18,6 +18,17 @@ android {
         }
     }
 
+
+    productFlavors {
+        production {
+            applicationId "com.lft.trainig.threads"
+        }
+        staging {
+            applicationId "com.lft.threads"
+        }
+
+    }
+
 }
 
 dependencies {
