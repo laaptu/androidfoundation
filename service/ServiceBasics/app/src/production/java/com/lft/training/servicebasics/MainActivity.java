@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lft.training.servicebasics.bound.BindServiceActivity;
+import com.lft.training.servicebasics.broadcasts.BroadCastActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -13,11 +16,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //goToBoundServiceActivity();
-        goToBasicServiceActivity();
+        //goToBasicServiceActivity();
+        testTrace();
+        goToBroadCastActivity();
+    }
+
+    private void testTrace() {
+        for (int i = 0; i < 1000000; i++) {
+            System.out.println(i);
+        }
+    }
+
+
+    private void goToBroadCastActivity() {
+        startActivity(new Intent(this, BroadCastActivity.class));
+        this.finish();
     }
 
     private void goToBoundServiceActivity() {
-        startActivity(new Intent(this, BoundServiceActivity.class));
+        startActivity(new Intent(this, BindServiceActivity.class));
         this.finish();
     }
 

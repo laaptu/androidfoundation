@@ -21,7 +21,8 @@ public class MainActivity extends BaseActivity {
 
     public void openService(View view) {
         if (true) {
-            callOtherService();
+            //callOtherService();
+            sendBroadCast1();
             return;
 
 
@@ -32,6 +33,12 @@ public class MainActivity extends BaseActivity {
         intent.setType("text/plain");
         startActivity(intent);
 
+    }
+
+    private void sendBroadCast1() {
+        Intent intent = new Intent(Extras.EVENT_DOWNLOADCOMPLETE);
+        intent.putExtra(Extras.URL, "This is from another call");
+        sendBroadcast(intent);
     }
 
     private void callOtherService() {

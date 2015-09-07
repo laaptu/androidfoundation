@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lft.training.servicebasics">
 
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -18,34 +19,54 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".BoundServiceActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.lft.training.servicebasics.action.OPEN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".BasicServiceActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".bound.BindServiceActivity"
+            android:screenOrientation="portrait" />
 
         <service android:name=".BoundServiceDemo" />
         <service
-            android:name="com.lft.training.servicebasics.BasicService"
+            android:name=".BasicService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.test" />
             </intent-filter>
-
         </service>
         <service android:name=".BasicIntentService" />
-
         <service android:name=".BasicForegroundService" />
+        <service android:name=".bound.BindService" />
+
+        <activity
+            android:name=".broadcasts.BroadCastActivity"
+            android:label="@string/title_activity_broad_cast"></activity>
+
+
+        <receiver android:name=".broadcasts.DownloadCompleteReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="downloadsakiyo" />
+                <action android:name="downloadhudaicha" />
+                <action android:name="com.lft.androidtraining.action.DOWNLOAD_COMPLETE"/>
+                <!--<action android:name="android.intent.action.SCREEN_OFF" />-->
+                <!--<action android:name="android.intent.action.SCREEN_ON" />-->
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".broadcasts.DownloadService" />
     </application>
 
 </manifest>
