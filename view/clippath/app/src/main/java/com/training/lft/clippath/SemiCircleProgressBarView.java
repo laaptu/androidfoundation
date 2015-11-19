@@ -48,6 +48,7 @@ public class SemiCircleProgressBarView extends View {
 
         //Top left coordinates of image. Give appropriate values depending on the position you wnat image to be placed
         mPivotX = getScreenGridUnit();
+        mPivotX = 0;
         mPivotY = 0;
 
         //Adjust the image size to support different screen sizes
@@ -81,7 +82,7 @@ public class SemiCircleProgressBarView extends View {
 
     public void setProgress() {
         mClippingPath.reset();
-        progress=0;
+        progress = 0;
         handler.removeMessages(0);
         handler.sendEmptyMessage(0);
     }
