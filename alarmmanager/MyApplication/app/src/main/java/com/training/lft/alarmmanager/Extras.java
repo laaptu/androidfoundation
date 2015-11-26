@@ -11,7 +11,7 @@ public class Extras {
     public static final String ALARM_MESSAGE = "alarmMessage";
 
     public static final String TIME_FORMAT = "hh:mm:ss a";
-    public static final String RTC = "RTC";
+    public static final String RTC = "RTC",RTC1="RTC1";
     public static final String RTC_WAKEUP = "RTC_WAKEUP";
     public static final String ELAPSED = "ELAPSED";
     public static final String ELAPSED_WAKEUP = "ELAPSED_WAKEUP";

@@ -31,10 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
     //1 minutes
     private static final long INTERVAL = 1 * 10 * 1000L;
-    private static final long START_AFTER = 1 * 30 * 1000L;
+    /**
+     * 1. When interval was 10 sec and start time was after 30 sec,
+     * in Android 4.4 and above, the repeating is working at interval of 1 minutes,
+     * but below 4.4, it is working as intended
+     */
+    private static final long START_AFTER = 1 * 15 * 1000L;
     private static final long JITTER = 5000L;
 
-    private int ELAPSED_ID = 0x1, RTC_ID = 0x2;
+    private int ELAPSED_ID = 0x1, RTC_ID = 0x2, RTC1_ID = 0x3;
 
     @Bind(R.id.info_txt)
     TextView infoTxt;
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 setRepeatingAlarm();
                 break;
             case R.id.btn_set_repeat_exact:
+                setRepeatingAlarmInExact();
                 break;
             case R.id.btn_cancel_alrm:
                 cancelAlarm();
@@ -142,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         //pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
-    private void setPendingIntentElapsedWithMessage(String message,int id) {
+    private void setPendingIntentElapsedWithMessage(String message, int id) {
         intent = new Intent(this, AlarmNotificationReceiver.class);
         intent.putExtra(Extras.ALARM_MESSAGE, message);
         pendingIntentElapsed = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -164,7 +170,12 @@ public class MainActivity extends AppCompatActivity {
         pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-
+    /**
+     * There will be noticeable difference  of this in Android 4.4 and above and below.
+     * In 4.4 below, the code runs as intended, but from 4.4 and above it runs in slightly different manner
+     * since all the repeating is inexact from 4.4 and above.
+     * So while testing this run this in android version 4.4 and above and below to see the difference
+     */
     private void setRepeatingAlarm() {
         AlarmManager alarmManager = AlarmApplication.getAlarmManager();
         String message = Extras.RTC + " :: startedAt " + Extras.getCurrentTime();
@@ -173,14 +184,45 @@ public class MainActivity extends AppCompatActivity {
                 System.currentTimeMillis() + START_AFTER, INTERVAL, pendingIntent);
         message = Extras.ELAPSED + " :: startedAt " + Extras.getCurrentTime();
         setPendingIntentElapsedWithMessage(message, ELAPSED_ID);
+        /**
+         * To show that 4.4 and above operates in setInExact, just add some delay to
+         * second alarm i.e. with elapsed time, and in 4.4 both above and below alarm
+         * start at same time but 4.4 below it will happen in different time*/
         alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
-                SystemClock.elapsedRealtime() + START_AFTER, INTERVAL, pendingIntentElapsed);
+                SystemClock.elapsedRealtime() + START_AFTER+JITTER, INTERVAL, pendingIntentElapsed);
+//        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME,
+//                SystemClock.elapsedRealtime() + START_AFTER, INTERVAL, pendingIntentElapsed);
+    }
+
+    /**
+     * 1. In 4.4 below the setRepeating In Exact won't work, if the INTERVAl is not as per
+     * Android interval. If the interval is other (i.e. AlarmManager.INTERVAL_FIFTEEN_MINUTES and so on)4.4 and below ,
+     * it is considered as setRepeating
+     * 2. But 4.4 and above, it behaves setRepeating InExact . So 4.4 and above, using setRepeating and setRepeatingInExact
+     * doesn't seems to have so much difference
+     */
+    private void setRepeatingAlarmInExact() {
+        AlarmManager alarmManager = AlarmApplication.getAlarmManager();
+        String message = Extras.RTC + " :: startedAt " + Extras.getCurrentTime();
+        setPendingIntentWithMessage(message, RTC_ID);
+
+//        alarmManager.setInexactRepeating(AlarmManager.RTC,
+//                System.currentTimeMillis() + START_AFTER, INTERVAL, pendingIntent);
+        alarmManager.setInexactRepeating(AlarmManager.RTC,
+                System.currentTimeMillis() + START_AFTER, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        message = Extras.ELAPSED + " :: startedAt " + Extras.getCurrentTime();
+        setPendingIntentElapsedWithMessage(message, ELAPSED_ID);
+
+//        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+//                SystemClock.elapsedRealtime() + START_AFTER + JITTER, INTERVAL, pendingIntentElapsed);
+        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + START_AFTER + JITTER, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntentElapsed);
     }
 
 
     private void cancelAlarm() {
         AlarmManager alarmManager = AlarmApplication.getAlarmManager();
-        setPendingIntentWithMessage("",RTC_ID);
+        setPendingIntentWithMessage("", RTC_ID);
         alarmManager.cancel(pendingIntent);
         setPendingIntentWithMessage("", ELAPSED_ID);
         alarmManager.cancel(pendingIntent);

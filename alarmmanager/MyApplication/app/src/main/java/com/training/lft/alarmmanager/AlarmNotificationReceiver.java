@@ -24,6 +24,16 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        System.out.println("OnReceive");
+        if(intent.getAction() !=null){
+            System.out.println("Action "+intent.getAction());
+        }
+
+        if (intent.getAction() !=null && intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
+            System.out.println("Boot completed");
+            return;
+        }
+
         notificationIntent = new Intent(context, MainActivity.class);
         String message = "";
         if (intent.hasExtra(Extras.ALARM_MESSAGE)) {
@@ -31,7 +41,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
             message += " :received at " + Extras.getCurrentTime();
         }
 
-        System.out.println("Alarm Received at "+message);
+        System.out.println("Alarm Received at " + message);
         notificationIntent.putExtra(Extras.ALARM_MESSAGE, message);
         pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -44,8 +54,8 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
                 .setWhen(System.currentTimeMillis())
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setContentIntent(pendingIntent);
-                        //.setSound(soundURI)
-                //.setVibrate(vibratePattern);
+        //.setSound(soundURI)
+        //.setVibrate(vibratePattern);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         int notificationId = (int) (Math.random() * 1000);
