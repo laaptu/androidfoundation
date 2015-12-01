@@ -2,7 +2,7 @@ package com.lft.training.customviewbasic.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.lft.training.customviewbasic.DataHolder;
 import com.lft.training.customviewbasic.ViewSize;
@@ -17,21 +17,21 @@ import timber.log.Timber;
  *   a. CustomLinearLayout: match_parent,match_parent, all view : wrap_content, wrap_content
  *
  */
-public class CustomLinearLayout extends LinearLayout {
+public class CustomRelativeLayout extends RelativeLayout {
     private static final String TAG = "CustomLinearLayout";
     ViewSize viewSize;
 
-    public CustomLinearLayout(Context context) {
+    public CustomRelativeLayout(Context context) {
         this(context, null);
     }
 
-    public CustomLinearLayout(Context context, AttributeSet attrs) {
+    public CustomRelativeLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CustomLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomRelativeLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOrientation(LinearLayout.HORIZONTAL);
+        //setOrientation(LinearLayout.HORIZONTAL);
     }
 
 

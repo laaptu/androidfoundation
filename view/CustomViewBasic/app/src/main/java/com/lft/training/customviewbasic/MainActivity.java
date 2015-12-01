@@ -1,9 +1,11 @@
 package com.lft.training.customviewbasic;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        int[] screnDimen = DataHolder.getScreenDimension();
+        Timber.d("screenWidth , screenHeight = %d , %d", screnDimen[0], screnDimen[1]);
     }
 
     @Override
