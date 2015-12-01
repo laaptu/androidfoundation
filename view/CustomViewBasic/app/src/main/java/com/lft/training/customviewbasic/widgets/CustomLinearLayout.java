@@ -15,6 +15,13 @@ import timber.log.Timber;
  * from parent and it finally ends @ parent as well i.e. it cycles all its child
  * 2. Use different layout width and height to find what params are stored in widthMeasureSpec
  *   a. CustomLinearLayout: match_parent,match_parent, all view : wrap_content, wrap_content
+ * 3. Explain why setMeasuredDimension is important on custom view, with example of scrollview
+ * Under scrollview add custom linear layout and other views mainly custom  view and show the difference between
+ * custom view with setMeasuredDimension and without it
+ * 4. SetMeasuredDimension is like telling that you will take that much space and will notify the parent, then parent
+ * will make necessary changes and gives new dimension or size other view wants to take
+ * 5. Also make necessary changes on how to identify the size on Custom View , the size is identified by the mode and spec
+ * About Size now depends upon your requirement. So as per requirement you can now manipulate the size
  *
  */
 public class CustomLinearLayout extends LinearLayout {
