@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lft.training.customviewbasic.layoutmodule.HorizontalLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <com.lft.training.customviewbasic.widgets.CustomButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is button 1234" />
+
+    <com.lft.training.customviewbasic.widgets.CustomView
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
+
+    <com.lft.training.customviewbasic.widgets.CustomTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This is text" />
+
+</com.lft.training.customviewbasic.layoutmodule.HorizontalLinearLayout>

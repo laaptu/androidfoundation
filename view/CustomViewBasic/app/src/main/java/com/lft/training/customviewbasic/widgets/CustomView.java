@@ -5,6 +5,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -22,6 +25,9 @@ public class CustomView extends View {
     private final Paint paint = new Paint();
     private int minimumSize = 200;
 
+    private ShapeDrawable shapeDrawable;
+    private GradientDrawable gradientDrawable;
+
     ViewSize viewSize;
 
     public CustomView(Context context) {
@@ -35,7 +41,23 @@ public class CustomView extends View {
     public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL);
+        //paint.setStyle(Paint.Style.FILL);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(15);
+        paint.setAntiAlias(true);
+
+        shapeDrawable = new ShapeDrawable(new RectShape());
+        shapeDrawable.getPaint().set(paint);
+
+        gradientDrawable = new GradientDrawable();
+        gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+        gradientDrawable.setCornerRadius(30);
+        gradientDrawable.setStroke(10, Color.RED);
+        //gradientDrawable.setColor(Color.WHITE);
+        //gradientDrawable.
+
+
+        //shapeDrawable.
         // rect.set(0, 0, getWidth(), getWidth());
     }
 
@@ -64,6 +86,13 @@ public class CustomView extends View {
         Timber.d(DataHolder.ON_MEASURE_AFTER + " (widthMeasureSpec :: heightMeasureSpec  = %d :: %d)", widthMeasureSpec, heightMeasureSpec);
         Timber.d(DataHolder.VIEW_MODE + " :: " + DataHolder.VIEW_SIZE + " = %s :: %d", viewSize.viewMode, viewSize.viewSizeInPx);
 
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        Timber.d(DataHolder.ON_LAYOUT_BEFORE + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
+        super.onLayout(changed, l, t, r, b);
+        Timber.d(DataHolder.ON_LAYOUT_AFTER + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
     }
 
     private int findAppropriateSize(int measureSpec, int minimumSize) {
@@ -95,6 +124,11 @@ public class CustomView extends View {
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
         rect.set(0, 0, getWidth(), getHeight());
-        canvas.drawRect(rect, paint);
+        shapeDrawable.setBounds(rect);
+        gradientDrawable.setBounds(rect);
+        //canvas.drawRect(rect, paint);
+        //canvas.drawRoundRect(new RectF(rect),90,90,paint);
+        //shapeDrawable.draw(canvas);
+        gradientDrawable.draw(canvas);
     }
 }
