@@ -67,7 +67,7 @@ public class HorizontalLinearLayout extends ViewGroup {
 
             int makeChildHeightSpec = getChildMeasureSpec(parentHeightMeasureSpec, childPadding, layoutParams.height);
             child.measure(makeChildWithSpec, makeChildHeightSpec);
-            //measureChild(child, parentWidthMeasureSpec, parentHeightMeasureSpec);
+            measureChild(child, parentWidthMeasureSpec, parentHeightMeasureSpec);
             //measureChildWithMargins(child, parentWidthMeasureSpec, parentWidth, parentHeightMeasureSpec, parentHeight);
             Timber.d("Child %d width = %d ", i, child.getMeasuredWidth());
             parentWidth += child.getMeasuredWidth();
