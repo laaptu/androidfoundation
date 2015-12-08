@@ -123,6 +123,7 @@ public class CustomView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
+        Timber.d(DataHolder.ON_DRAW);
         rect.set(0, 0, getWidth(), getHeight());
         shapeDrawable.setBounds(rect);
         gradientDrawable.setBounds(rect);

@@ -1,6 +1,7 @@
 package com.lft.training.customviewbasic.widgets;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -52,5 +53,13 @@ public class CustomTextView extends TextView {
         Timber.d(DataHolder.ON_LAYOUT_BEFORE + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
         super.onLayout(changed, l, t, r, b);
         Timber.d(DataHolder.ON_LAYOUT_AFTER + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
+    }
+
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Timber.d(DataHolder.ON_DRAW_BEFORE);
+        super.onDraw(canvas);
+        Timber.d(DataHolder.ON_DRAW_AFTER);
     }
 }

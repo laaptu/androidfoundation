@@ -14,8 +14,9 @@ public class MainActivity extends Activity {
         //Probe.deploy(this, new OvermeasureInterceptor(R.id.root_layout));
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_draw);
         //for layoutmodule i.e. second module which demonstrates onLayout pass
-        setContentView(R.layout.activity_main_layoutmodule);
+        //setContentView(R.layout.activity_main_layoutmodule);
 
         int[] screnDimen = DataHolder.getScreenDimension();
         Timber.d("screenWidth , screenHeight = %d , %d", screnDimen[0], screnDimen[1]);

@@ -14,6 +14,11 @@ public class DataHolder {
     public static final String ON_MEASURE_AFTER = "onMeasure()->after";
     public static final String ON_LAYOUT_BEFORE = "onLayout()->before";
     public static final String ON_LAYOUT_AFTER = "onLayout()->after";
+    public static final String ON_DRAW_BEFORE = "onDraw()->before";
+    public static final String ON_DRAW_AFTER = "onDraw()->after";
+    public static final String ON_DRAW="onDraw()";
+    public static final String DISPATCH_DRAW_BEFORE = "dispatchDraw()->before";
+    public static final String DISPATCH_DRAW_AFTER = "dispatchDraw()->after";
     public static final String SEPARATOR_START = "--------------------------------------------";
     public static final String SEPARATOR_END = "**********************************************";
     public static final String UNSPECIFIED = "UNSPECIFIED", AT_MOST = "AT_MOST", EXACTLY = "EXACTLY";

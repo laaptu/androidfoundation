@@ -1,6 +1,7 @@
 package com.lft.training.customviewbasic.widgets;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -26,7 +27,12 @@ import timber.log.Timber;
  * Second Class onLayout()
  * 1. Add a log on onLayout() to validate the idea that after onMeasure(), onLayout will be called
  * 2. Create a custom viewgroup with different rectangles and behave them like a linearlayout horizontal now move on to package
- *   layoutmodule
+ * layoutmodule
+ * OnDraw()
+ * 1. First add log on OnDraw() of viewgroup and then see the log. We can modify the viewgroup onDraw() to draw sth
+ * but by default it will be ignored. onDraw will be called is setWillNotDrawEnabled = false
+ * 2. Go on to DispatchDraw() and see the log. and once log is seen. Do comment the super.dispatchDraw()
+ * 3. onDraw() will be called only when setWillNotDraw(false);
  */
 public class CustomLinearLayout extends LinearLayout {
     private static final String TAG = "CustomLinearLayout";
@@ -43,6 +49,7 @@ public class CustomLinearLayout extends LinearLayout {
     public CustomLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setOrientation(LinearLayout.HORIZONTAL);
+        setWillNotDraw(false);
     }
 
 
@@ -65,6 +72,24 @@ public class CustomLinearLayout extends LinearLayout {
         Timber.d(DataHolder.ON_LAYOUT_BEFORE + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
         super.onLayout(changed, l, t, r, b);
         Timber.d(DataHolder.ON_LAYOUT_AFTER + " left::top::right::bottom = %d::%d::%d::%d", l, t, r, b);
+        Timber.d(DataHolder.SEPARATOR_END);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        Timber.d(DataHolder.SEPARATOR_START);
+        Timber.d(DataHolder.ON_DRAW_BEFORE);
+        super.onDraw(canvas);
+        Timber.d(DataHolder.ON_DRAW_AFTER);
+        Timber.d(DataHolder.SEPARATOR_END);
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        Timber.d(DataHolder.SEPARATOR_START);
+        Timber.d(DataHolder.DISPATCH_DRAW_BEFORE);
+        super.dispatchDraw(canvas);
+        Timber.d(DataHolder.DISPATCH_DRAW_AFTER);
         Timber.d(DataHolder.SEPARATOR_END);
     }
 }
