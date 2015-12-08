@@ -6,13 +6,21 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
+
+import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
 
 /**
  * Created by laaptu on 12/9/15.
+ * 1. Try to show animate with only one line executing like
+ * index =1 draw Arc only
+ * index =2 draw other only
+ * to illustrate that once draw is called, the user is presented with a clean slate i.e. all other drawing are gone
  */
 public class CarView extends View {
     private int minimumDimension = 500;
@@ -28,6 +36,9 @@ public class CarView extends View {
     private final Paint tyrePaint = new Paint();
 
     private final Paint carTextPaint = new Paint();
+
+    private int index = 0;
+    private AnimateHandler animateHandler;
 
     public CarView(Context context) {
         this(context, null);
@@ -48,6 +59,8 @@ public class CarView extends View {
         carTextPaint.setColor(Color.WHITE);
         carTextPaint.setTextSize(80);
         carTextPaint.setAntiAlias(true);
+
+        animateHandler = new AnimateHandler(this);
     }
 
     @Override
@@ -97,15 +110,135 @@ public class CarView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        animateDraw1(canvas);
+
+
+//        canvas.drawRect(frontHoodRect, bodyPaint);
+//        canvas.drawRect(backHoodRect, bodyPaint);
+//        canvas.drawRect(mainBodyRect, bodyPaint);
+    }
+
+    private void normalDraw(Canvas canvas) {
         canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
         canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
         canvas.drawRect(frontHoodRect, bodyPaint);
         canvas.drawRect(mainBodyRect, bodyPaint);
         canvas.drawRect(backHoodRect, bodyPaint);
-        canvas.drawText("Ferrari",mainBodyRect.centerX(),mainBodyRect.centerY(),carTextPaint);
+        canvas.drawText("Ferrari", mainBodyRect.centerX(), mainBodyRect.centerY(), carTextPaint);
+    }
 
-//        canvas.drawRect(frontHoodRect, bodyPaint);
-//        canvas.drawRect(backHoodRect, bodyPaint);
-//        canvas.drawRect(mainBodyRect, bodyPaint);
+
+    private void chechIndex() throws Exception {
+        passedIndex++;
+        if (passedIndex > index)
+            throw new Exception("Break the line of code");
+    }
+
+    private int passedIndex;
+
+    private void animateDraw1(Canvas canvas) {
+        try {
+            passedIndex = 0;
+            chechIndex();
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+            chechIndex();
+            canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
+            chechIndex();
+            canvas.drawRect(frontHoodRect, bodyPaint);
+            chechIndex();
+            canvas.drawRect(mainBodyRect, bodyPaint);
+            chechIndex();
+            canvas.drawRect(backHoodRect, bodyPaint);
+            chechIndex();
+            canvas.drawText("Ferrari", mainBodyRect.centerX(), mainBodyRect.centerY(), carTextPaint);
+        } catch (Exception e) {
+
+        }
+    }
+
+
+    private void animateDraw(Canvas canvas) {
+        if (index == 1)
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+        if (index == 2) {
+            canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+        }
+        if (index == 3) {
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawRect(frontHoodRect, bodyPaint);
+        }
+
+        if (index == 4) {
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawRect(frontHoodRect, bodyPaint);
+            canvas.drawRect(mainBodyRect, bodyPaint);
+        }
+
+        if (index == 5) {
+            canvas.drawArc(new RectF(frontTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawArc(new RectF(backTyreRect), 0, 360, false, tyrePaint);
+            canvas.drawRect(frontHoodRect, bodyPaint);
+            canvas.drawRect(mainBodyRect, bodyPaint);
+            canvas.drawRect(backHoodRect, bodyPaint);
+        }
+
+        if (index == 6) {
+            normalDraw(canvas);
+        }
+
+        //canvas.save();
+
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                beginAnimate();
+            }
+        }, 800);
+    }
+
+    private void animateCanvas() {
+        index++;
+        invalidate();
+        animateHandler.sendEmptyMessageDelayed(AnimateHandler.ANIMATE, 400);
+    }
+
+    private void beginAnimate() {
+        animateHandler.removeAllMessages();
+        animateHandler.sendEmptyMessage(AnimateHandler.ANIMATE);
+
+    }
+
+    static class AnimateHandler extends Handler {
+
+        final WeakReference<CarView> carViewWeakReference;
+        public static final int ANIMATE = 0x1, STOP_ANIMATE = 0x2;
+
+        public AnimateHandler(CarView carView) {
+            carViewWeakReference = new WeakReference<>(carView);
+        }
+
+        public void removeAllMessages() {
+            removeMessages(ANIMATE);
+            removeMessages(STOP_ANIMATE);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (carViewWeakReference.get().index >= 6 || msg.what == STOP_ANIMATE) {
+                carViewWeakReference.get().index = 0;
+                removeAllMessages();
+                return;
+            }
+            carViewWeakReference.get().animateCanvas();
+        }
     }
 }
