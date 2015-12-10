@@ -5,9 +5,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.lft.training.customviewbasic.widgets.CustomView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 public class MainActivity extends Activity {
+
+    @Bind(R.id.customview)
+    CustomView customView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +26,17 @@ public class MainActivity extends Activity {
         //for layoutmodule i.e. second module which demonstrates onLayout pass
         //setContentView(R.layout.activity_main_layoutmodule);
 
+        ButterKnife.bind(this);
+
         int[] screnDimen = DataHolder.getScreenDimension();
         Timber.d("screenWidth , screenHeight = %d , %d", screnDimen[0], screnDimen[1]);
+
+        int[] locationInWindow = new int[2];
+        int[] locationInScreen = new int[2];
+        customView.getLocationInWindow(locationInWindow);
+        customView.getLocationOnScreen(locationInScreen);
+        Timber.d("Custom view locationin window %d:%d",locationInWindow[0],locationInWindow[1]);
+        Timber.d("Custom view location on screen %d:%d",locationInScreen[0],locationInScreen[1]);
     }
 
     @Override

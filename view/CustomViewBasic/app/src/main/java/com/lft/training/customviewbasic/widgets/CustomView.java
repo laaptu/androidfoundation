@@ -117,14 +117,16 @@ public class CustomView extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        //rect.set(0, 0, w, h);
+        rect.set(0, 0, w, h);
+        Timber.d(DataHolder.ON_SIZE_CHANGED + " rect left:top:right:bottom %d:%d:%d:%d", rect.left, rect.top, rect.right, rect.bottom);
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
         Timber.d(DataHolder.ON_DRAW);
-        rect.set(0, 0, getWidth(), getHeight());
+        //rect.set(0, 0, getWidth(), getHeight());
         shapeDrawable.setBounds(rect);
         gradientDrawable.setBounds(rect);
         //canvas.drawRect(rect, paint);

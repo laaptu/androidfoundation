@@ -11,6 +11,8 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.lft.training.customviewbasic.DataHolder;
+
 import java.lang.ref.WeakReference;
 
 import timber.log.Timber;
@@ -21,6 +23,10 @@ import timber.log.Timber;
  * index =1 draw Arc only
  * index =2 draw other only
  * to illustrate that once draw is called, the user is presented with a clean slate i.e. all other drawing are gone
+ *
+ * 2. Always remember that view considers the co-ordinates starting from 0,0 as view is taking its own coordinate
+ * space. That position is not the screen coordinates. Meaning, once draw is called view own co-ordinate system starts
+ *
  */
 public class CarView extends View {
     private int minimumDimension = 500;
@@ -96,7 +102,7 @@ public class CarView extends View {
         super.onSizeChanged(w, h, oldw, oldh);
         mainRect.set(getPaddingLeft(), getPaddingTop(), w - getPaddingRight(), h - getPaddingBottom());
         bodyRect.set(mainRect.left, mainRect.top, mainRect.right, mainRect.height() / 2);
-        Timber.d("BodyRect Width  %d", bodyRect.width());
+        Timber.d(DataHolder.ON_SIZE_CHANGED+" left:top:right:bottom %d:%d:%d:%d", mainRect.left, mainRect.top, mainRect.right, mainRect.bottom);
 
         frontHoodRect.set(bodyRect.left, bodyRect.height() / 2, (int) (bodyRect.width() * 0.3), bodyRect.bottom);
         mainBodyRect.set(frontHoodRect.right, bodyRect.top, frontHoodRect.right + (int) (bodyRect.width() * 0.4), bodyRect.bottom);
@@ -106,6 +112,7 @@ public class CarView extends View {
         frontTyreRect.set(frontHoodRect.left, frontHoodRect.bottom, frontHoodRect.right, frontHoodRect.bottom + (int) (bodyRect.width() * 0.3));
         backTyreRect.set(backHoodRect.left, backHoodRect.bottom, backHoodRect.right, frontHoodRect.bottom + (int) (bodyRect.width() * 0.3));
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {

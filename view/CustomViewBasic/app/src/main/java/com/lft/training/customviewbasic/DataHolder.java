@@ -16,7 +16,8 @@ public class DataHolder {
     public static final String ON_LAYOUT_AFTER = "onLayout()->after";
     public static final String ON_DRAW_BEFORE = "onDraw()->before";
     public static final String ON_DRAW_AFTER = "onDraw()->after";
-    public static final String ON_DRAW="onDraw()";
+    public static final String ON_DRAW = "onDraw()";
+    public static final String ON_SIZE_CHANGED = "onSizeChanged()";
     public static final String DISPATCH_DRAW_BEFORE = "dispatchDraw()->before";
     public static final String DISPATCH_DRAW_AFTER = "dispatchDraw()->after";
     public static final String SEPARATOR_START = "--------------------------------------------";

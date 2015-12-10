@@ -88,7 +88,7 @@ public class CustomLinearLayout extends LinearLayout {
     protected void dispatchDraw(Canvas canvas) {
         Timber.d(DataHolder.SEPARATOR_START);
         Timber.d(DataHolder.DISPATCH_DRAW_BEFORE);
-        super.dispatchDraw(canvas);
+        //super.dispatchDraw(canvas);
         Timber.d(DataHolder.DISPATCH_DRAW_AFTER);
         Timber.d(DataHolder.SEPARATOR_END);
     }

@@ -13,6 +13,11 @@
         android:layout_height="wrap_content"
         android:text="This is car" />
 
+    <com.lft.training.customviewbasic.widgets.CustomView
+        android:id="@+id/customview"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
 
     <com.lft.training.customviewbasic.widgets.CarView
         android:layout_width="wrap_content"
