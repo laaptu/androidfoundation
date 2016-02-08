@@ -1,4 +1,4 @@
-package com.training.lft.touchgesture.widgets;
+package com.training.lft.touchgesture.singletouch;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,16 +9,11 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.training.lft.touchgesture.DataHolder;
-
-import timber.log.Timber;
-
 /**
  * Created by laaptu on 12/14/15.
  */
-public class SecondView extends View {
-
-    public static final String TAG = "SecondView";
+public class FirstView extends View {
+    public static final String TAG = "FirstView";
 
     public Rect mainRect;
 
@@ -26,47 +21,17 @@ public class SecondView extends View {
 
     public int minimumSize = 500;
 
-    public SecondView(Context context) {
+    public FirstView(Context context) {
         this(context, null);
     }
 
-    public SecondView(Context context, AttributeSet attrs) {
+    public FirstView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SecondView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FirstView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
-        this.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Timber.d("OnTouchListener onTouch()");
-                DataHolder.getMotionEvent(TAG, event, DataHolder.CONSUME_TOUCH, true);
-                return true;
-            }
-        });
-    }
-
-
-    public int getBackgroundColor() {
-        return Color.YELLOW;
-    }
-
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        Timber.d(DataHolder.DISPATCH_TOUCH_BEFORE);
-        boolean dispatch = super.dispatchTouchEvent(ev);
-        DataHolder.getMotionEvent(TAG, ev, DataHolder.DISPATCH_TOUCH, dispatch);
-        Timber.d(DataHolder.DISPATCH_TOUCH_AFTER);
-        return dispatch;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        Timber.d(DataHolder.ON_TOUCH_EVENT);
-        boolean onTouch = super.onTouchEvent(event);
-        DataHolder.getMotionEvent(TAG, event, DataHolder.CONSUME_TOUCH, onTouch);
-        return onTouch;
     }
 
     public void init(Context context) {
@@ -96,5 +61,15 @@ public class SecondView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawRect(mainRect, mainPaint);
+    }
+
+    public int getBackgroundColor() {
+        return Color.BLUE;
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
     }
 }

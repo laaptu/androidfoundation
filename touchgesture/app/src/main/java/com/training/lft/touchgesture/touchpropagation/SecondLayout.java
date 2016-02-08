@@ -1,4 +1,4 @@
-package com.training.lft.touchgesture.widgets;
+package com.training.lft.touchgesture.touchpropagation;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,9 +1,12 @@
-package com.training.lft.touchgesture;
+package com.training.lft.touchgesture.touchpropagation;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
+
+import com.training.lft.touchgesture.DataHolder;
+import com.training.lft.touchgesture.R;
 
 import timber.log.Timber;
 
@@ -14,7 +17,7 @@ import timber.log.Timber;
  * 2: Illustrate view getLeft(),right() ,top() and bottom() and what value does it take on
  * 3: Illustrate what x,y values are giving you and how you need to correspond it to the global value
  */
-public class MainActivity extends AppCompatActivity {
+public class TouchPropagationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
