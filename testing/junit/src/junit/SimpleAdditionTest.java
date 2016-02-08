@@ -6,10 +6,18 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class SimpleAdditionTest {
 	SimpleAddition simpleAddition;
+
+	@Rule
+	public ExpectedException expectedException = ExpectedException.none();
+	
+	@Rule
+	public MyOwnCustomRule myOwnCustomRule = new MyOwnCustomRule();
 
 	// everything we write with annotation @Test becomes our testcase
 	// here there are two test cases test() and secondTest()
@@ -33,6 +41,7 @@ public class SimpleAdditionTest {
 
 	@Test
 	public void arraySortTest() {
+		System.out.println("arraySortTest()");
 		int[] unsortedArray = { 5, 4, 3, 2, 1 };
 		int[] sortedArray = { 1, 2, 3, 4, 5 };
 		assertArrayEquals(sortedArray, simpleAddition.sortArrays(unsortedArray));
@@ -41,6 +50,16 @@ public class SimpleAdditionTest {
 	// making test case with exception
 	@Test(expected = Exception.class)
 	public void nullArrayTest() {
+		System.out.println("nullArrayTest()");
+		simpleAddition.sortArrays(null);
+	}
+
+	// testing exception with rules
+	@Test
+	public void nullArrayTest1() {
+		System.out.println("nullArrayTest1()");
+		expectedException.expect(NullPointerException.class);
+		//expectedException.expectMessage("You are checking against null");
 		simpleAddition.sortArrays(null);
 	}
 
@@ -48,9 +67,10 @@ public class SimpleAdditionTest {
 	// meaning if the method takes more than time out time, it fails the test
 	// but if the method takes less time than the allocated time, then it will
 	// pass the test
-	//it is in ms
+	// it is in ms
 	@Test(timeout = 200)
 	public void timeOutTest() {
+		System.out.println();
 		for (int i = 0; i < 1000000; i++) {
 			int[] dummyArr = { i, i + 1, i - 2 };
 			simpleAddition.sortArrays(dummyArr);
