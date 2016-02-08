@@ -17,6 +17,7 @@ import timber.log.Timber;
  * Created by laaptu on 12/14/15.
  */
 public class FirstView extends View {
+    public static final String TAG = "FirstView";
 
     public Rect mainRect;
 
@@ -75,6 +76,7 @@ public class FirstView extends View {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Timber.d(DataHolder.DISPATCH_TOUCH_BEFORE);
         boolean dispatch = super.dispatchTouchEvent(ev);
+        DataHolder.getMotionEvent(TAG, ev, DataHolder.DISPATCH_TOUCH, dispatch);
         Timber.d(DataHolder.DISPATCH_TOUCH_AFTER);
         return dispatch;
     }
@@ -83,6 +85,8 @@ public class FirstView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         Timber.d(DataHolder.ON_TOUCH_EVENT);
         boolean onTouch = super.onTouchEvent(event);
+        //onTouch = true;
+        DataHolder.getMotionEvent(TAG, event, DataHolder.CONSUME_TOUCH, onTouch);
         return onTouch;
     }
 }

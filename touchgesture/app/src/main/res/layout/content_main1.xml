@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.training.lft.touchgesture.widgets.FirstLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp">
+
+    <com.training.lft.touchgesture.widgets.SecondLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp">
+
+        <com.training.lft.touchgesture.widgets.FirstView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:padding="20dp" />
+
+        <com.training.lft.touchgesture.widgets.SecondView
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </com.training.lft.touchgesture.widgets.SecondLayout>
+</com.training.lft.touchgesture.widgets.FirstLayout>

@@ -14,6 +14,8 @@ import timber.log.Timber;
  * Created by laaptu on 12/14/15.
  */
 public class SecondLayout extends FrameLayout {
+    public static final String TAG = "SecondLayout";
+
     public SecondLayout(Context context) {
         this(context, null);
     }
@@ -31,6 +33,7 @@ public class SecondLayout extends FrameLayout {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Timber.d(DataHolder.DISPATCH_TOUCH_BEFORE);
         boolean dispatch = super.dispatchTouchEvent(ev);
+        DataHolder.getMotionEvent(TAG, ev, DataHolder.DISPATCH_TOUCH, dispatch);
         Timber.d(DataHolder.DISPATCH_TOUCH_AFTER);
         return dispatch;
     }
@@ -39,6 +42,7 @@ public class SecondLayout extends FrameLayout {
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Timber.d(DataHolder.INTERCEPT_TOUCH_BEFORE);
         boolean intercept = super.onInterceptTouchEvent(ev);
+        DataHolder.getMotionEvent(TAG, ev, DataHolder.INTERCEPT_TOUCH, intercept);
         Timber.d(DataHolder.INTERCEPT_TOUCH_AFTER);
         return intercept;
     }
@@ -47,6 +51,7 @@ public class SecondLayout extends FrameLayout {
     public boolean onTouchEvent(MotionEvent event) {
         Timber.d(DataHolder.ON_TOUCH_EVENT);
         boolean onTouch = super.onTouchEvent(event);
+        DataHolder.getMotionEvent(TAG, event, DataHolder.CONSUME_TOUCH, onTouch);
         return onTouch;
     }
 }
