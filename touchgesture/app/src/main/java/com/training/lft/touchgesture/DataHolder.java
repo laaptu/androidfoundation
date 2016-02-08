@@ -37,4 +37,6 @@ public class DataHolder {
         Timber.tag(tag).d("MotionEvent = %s, %s = %b", motionEvent, touchConsume, consumeTouch);
         return motionEvent;
     }
+
+    public static final String ACTION_DOWN = "ACTION_DOWN", ACTION_MOVE = "ACTION_MOVE", ACTION_UP = "ACTION_UP", ACTION_CANCEL = "ACTION_CANCEL";
 }

@@ -36,4 +36,10 @@ public class TouchPropagationActivity extends AppCompatActivity {
         Timber.d(DataHolder.SEPARATOR_END);
         return dispatch;
     }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Timber.d(DataHolder.ON_TOUCH_EVENT);
+        return super.onTouchEvent(event);
+    }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.training.lft.touchgesture.singletouch.SingleTouchActivity;
+import com.training.lft.touchgesture.touchintercept.InterceptTouchActivity;
 import com.training.lft.touchgesture.touchpropagation.TouchPropagationActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -13,6 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        goToModule2();
     }
 
     private void goToModule1() {
@@ -20,8 +22,13 @@ public class SplashActivity extends AppCompatActivity {
         this.finish();
     }
 
-    private void goToModule2() {
+    private void goToModule3() {
         startActivity(new Intent(this, SingleTouchActivity.class));
+        this.finish();
+    }
+
+    private void goToModule2() {
+        startActivity(new Intent(this, InterceptTouchActivity.class));
         this.finish();
     }
 }
