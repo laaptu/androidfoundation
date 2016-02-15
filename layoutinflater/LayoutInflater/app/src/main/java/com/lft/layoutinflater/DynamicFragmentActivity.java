@@ -57,7 +57,7 @@ public class DynamicFragmentActivity extends AppCompatActivity {
 //            inflater.inflate(R.layout.dynamic_fragment, container,true);
 //            are same thing and both of them will crash, look on the log error to find out
             //at what point the error comes
-            view = inflater.inflate(R.layout.dynamic_fragment, container);
+            view = inflater.inflate(R.layout.dynamic_fragment, container,false);
             Timber.d("onCreateView()");
             Timber.d("Container is null =%b", container == null);
             if (container != null) {
@@ -70,6 +70,7 @@ public class DynamicFragmentActivity extends AppCompatActivity {
         private void logView() {
             Timber.d("*********************************");
             Timber.d("View is null =%b", view == null);
+            Timber.d("View id =%s",Integer.toHexString(view.getId()));
             Timber.d("View instance of LinearLayout =%b", view instanceof LinearLayout);
             Timber.d("View has layoutParams =%b", view.getLayoutParams() != null);
             Timber.d("View has parent =%b", view.getParent() != null);
