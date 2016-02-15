@@ -26,13 +26,14 @@ public class MainApplication extends Application {
     private static void initRealmConfig(Context context) {
         realmConfiguration = new RealmConfiguration.Builder(context)
                 .name("test.realm")
-                .schemaVersion(3)
+                .schemaVersion(21)
                 .migration(realmMigration)
                 .setModules(new AllModel()).build();
         Realm.setDefaultConfiguration(realmConfiguration);
     }
 
     public static RealmConfiguration getRealmConfig() {
+        System.out.println("Real Configuration ==null " + String.valueOf(realmConfiguration == null));
         return realmConfiguration;
     }
 
@@ -49,12 +50,29 @@ public class MainApplication extends Application {
                 realmSchema.create("FourthModel")
                         .addField("model", String.class);
             }
-
+            //if any new realms are created like any class is added
             if (oldVersion == 2) {
                 realmSchema.create("FifthModel")
                         .addField("id", Integer.class)
                         .addField("modelName", String.class);
             }
+
+
+            //remove any field or property of class,don't forget to update the schema version as well
+            if (oldVersion == 17) {
+                realmSchema.get("Person").removeField("address");
+            }
+
+            if (oldVersion == 19) {
+                realmSchema.get("Person").addField("address", String.class);
+            }
+
+            if (oldVersion == 20) {
+                realmSchema.get("Person").addField("phNum",int.class)
+                .removeField("phNo");
+            }
+
+            System.out.println("OldVersion = " + oldVersion + " NewVersion = " + newVersion);
         }
     };
 }

@@ -1,6 +1,7 @@
 package com.lft.realmtest.model;
 
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -11,6 +12,30 @@ public class Person extends RealmObject {
     private int age;
     @PrimaryKey
     private int id;
+
+    //this indicates that this field or to say column can be null
+    @Ignore
+    private int ignoreField;
+
+
+    private int phNum;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getPhNum() {
+        return phNum;
+    }
+
+    public void setPhNum(int phNo) {
+        this.phNum = phNo;
+    }
 
     public int getId() {
         return id;

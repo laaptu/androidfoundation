@@ -11,6 +11,9 @@ import com.lft.realmtest.model.User;
 import java.util.UUID;
 
 import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 
 //https://realm.io/docs/java/latest/
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         //realmFirstObject();
         //realmFirstObjectThroughTransaction();
         realm = Realm.getInstance(MainApplication.getRealmConfig());
-        realmTransactionAsync();
+        //realmTransactionAsync();
+        fetchAsync();
     }
 
     private void realmFirstObject() {
@@ -109,6 +113,24 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("Transaction Error");
             }
         });
+    }
+
+    RealmResults<Person> realmResults;
+
+    private void fetchAsync() {
+        RealmChangeListener callback = new RealmChangeListener() {
+            @Override
+            public void onChange() {
+                System.out.println("All data fetched");
+                for (Person person : realmResults)
+                    System.out.println(person.getName());
+            }
+
+
+        };
+        realmResults = realm.where(Person.class).contains("name", "Person").findAllSortedAsync("age", Sort.DESCENDING);
+        realmResults.addChangeListener(callback);
+
     }
 
     @Override
