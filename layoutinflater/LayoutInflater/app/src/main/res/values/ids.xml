@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="inflated_view" type="id" />
+    <item name="inflated_view_parent" type="id" />
+    <item name="inflated_view_parent_parent" type="id" />
+    <item name="root_parent" type="id" />
+</resources>

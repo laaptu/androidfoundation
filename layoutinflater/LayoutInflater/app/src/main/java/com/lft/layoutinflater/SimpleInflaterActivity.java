@@ -28,7 +28,8 @@ public class SimpleInflaterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_inflater);
-        linearLayout = (LinearLayout) findViewById(R.id.container);
+        linearLayout = (LinearLayout) findViewById(R.id.inflated_view_parent);
+        frameLayout = (FrameLayout) findViewById(R.id.inflated_view_parent_parent);
         layoutInflater = LayoutInflater.from(this);
     }
 
@@ -36,8 +37,8 @@ public class SimpleInflaterActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btn_inflate:
 //                simpleInflateTest();
-                //nullViewGroupTest();
-                attachFalseViewGroupTest();
+                nullViewGroupTest();
+//                attachFalseViewGroupTest();
                 break;
             case R.id.btn_addchild:
                 addSimpleChild();
@@ -57,7 +58,7 @@ public class SimpleInflaterActivity extends AppCompatActivity {
 //        layoutParams.setMargins(10, 10, 10, 10);
 //        view.setLayoutParams(layoutParams);
         logView(view);
-        linearLayout.addView(view);
+        //linearLayout.addView(view);
         findChildCount();
     }
 
@@ -69,9 +70,9 @@ public class SimpleInflaterActivity extends AppCompatActivity {
      */
     private void attachFalseViewGroupTest() {
         View view = layoutInflater.inflate(R.layout.simple_inflate, linearLayout, false);
-        Timber.d("LinearLayout id =%s", Integer.toHexString(linearLayout.getId()));
+        Timber.d("LinearLayout id =%s", MainActivity.getLayoutId(linearLayout.getId()));
         logView(view);
-        linearLayout.addView(view);
+        //linearLayout.addView(view);
         findChildCount();
     }
 
@@ -86,7 +87,7 @@ public class SimpleInflaterActivity extends AppCompatActivity {
 //        linearLayout.setLayoutParams(layoutParams);
 
         this.linearLayout.addView(linearLayout);
-        Timber.d("FrameLayout id =%s", Integer.toHexString(this.linearLayout.getId()));
+        Timber.d("LinearLayout id =%s", MainActivity.getLayoutId(this.linearLayout.getId()));
         logView(linearLayout);
 
         findChildCount();
@@ -104,7 +105,7 @@ public class SimpleInflaterActivity extends AppCompatActivity {
         //show the diff between true and false
         //layoutInflater.inflate(R.layout.simple_inflate, linearLayout, false);
         View view = layoutInflater.inflate(R.layout.simple_inflate, linearLayout, true);
-        Timber.d("LinearLayout id =%s", Integer.toHexString(linearLayout.getId()));
+        Timber.d("LinearLayout id =%s", MainActivity.getLayoutId(linearLayout.getId()));
         logView(view);
         findChildCount();
     }
@@ -114,12 +115,13 @@ public class SimpleInflaterActivity extends AppCompatActivity {
     }
 
     private void logView(View view) {
+        Timber.d("***************************");
         Timber.d("View is null =%b", view == null);
-        Timber.d("View id=%s", Integer.toHexString(view.getId()));
+        Timber.d("View id=%s", MainActivity.getLayoutId(view.getId()));
         Timber.d("View instance of LinearLayout =%b", view instanceof LinearLayout);
         Timber.d("View has layoutParams =%b", view.getLayoutParams() != null);
         if (view.getLayoutParams() != null) {
-            Timber.d("View params instance of FrameLayoutParams =%b", view.getLayoutParams() instanceof FrameLayout.LayoutParams);
+//            Timber.d("View params instance of FrameLayoutParams =%b", view.getLayoutParams() instanceof FrameLayout.LayoutParams);
             Timber.d("View params instance of LinearLayoutParams =%b", view.getLayoutParams() instanceof LinearLayout.LayoutParams);
         }
         Timber.d("View has parent =%b", view.getParent() != null);
@@ -127,5 +129,6 @@ public class SimpleInflaterActivity extends AppCompatActivity {
             int id = ((ViewGroup) view.getParent()).getId();
             Timber.d("View parent id =%s", Integer.toHexString(id));
         }
+        Timber.d("-----------------------------------");
     }
 }

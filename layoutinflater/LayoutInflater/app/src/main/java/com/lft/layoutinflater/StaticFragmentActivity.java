@@ -7,19 +7,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import timber.log.Timber;
 
 public class StaticFragmentActivity extends AppCompatActivity {
     //http://stackoverflow.com/questions/16883831/android-fragment-is-given-a-null-container-in-oncreateview
+
+    LinearLayout parentlayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_static_fragment);
-
+        parentlayout = (LinearLayout) findViewById(R.id.root_parent);
         Fragment fragment = getFragmentManager().findFragmentById(R.id.static_fragment);
         Timber.d("Fragment is of type StaticFragment=%b", fragment instanceof StaticFragment);
+        Timber.d("Main Parent Id =%s",MainActivity.getLayoutId(parentlayout.getId()));
+
+        parentlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                parentlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                Timber.d("Total child count of parent =%d", parentlayout.getChildCount());
+            }
+        });
     }
 
 
@@ -53,12 +66,13 @@ public class StaticFragmentActivity extends AppCompatActivity {
         private void logView() {
             Timber.d("*********************************");
             Timber.d("View is null =%b", view == null);
+            Timber.d("View id =%s",MainActivity.getLayoutId(view.getId()));
             Timber.d("View instance of LinearLayout =%b", view instanceof LinearLayout);
             Timber.d("View has layoutParams =%b", view.getLayoutParams() != null);
             Timber.d("View has parent =%b", view.getParent() != null);
             if (view.getParent() != null) {
                 int id = ((ViewGroup) view.getParent()).getId();
-                Timber.d("Parent of View =%s", Integer.toHexString(id));
+                Timber.d("Parent of View =%s", MainActivity.getLayoutId(id));
             }
             Timber.d("---------------------------------------");
         }

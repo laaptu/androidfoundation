@@ -3,7 +3,7 @@
     android:layout_width="20dp"
     android:layout_height="20dp"
     android:background="@android:color/holo_blue_bright"
-    android:id="@+id/some_layout"
+    android:id="@id/inflated_view"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
