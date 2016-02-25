@@ -85,6 +85,7 @@ public class SimpleInflaterActivity extends AppCompatActivity {
 //        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(100, 100);
 //        layoutParams.setMargins(10, 10, 10, 10);
 //        linearLayout.setLayoutParams(layoutParams);
+        //style
 
         this.linearLayout.addView(linearLayout);
         Timber.d("LinearLayout id =%s", MainActivity.getLayoutId(this.linearLayout.getId()));

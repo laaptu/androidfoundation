@@ -14,20 +14,20 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        goToModule2();
+        understandHowTouchXYWorks();
     }
 
-    private void goToModule1() {
+    private void understandHowTouchPropagates() {
         startActivity(new Intent(this, TouchPropagationActivity.class));
         this.finish();
     }
 
-    private void goToModule3() {
+    private void understandHowTouchXYWorks() {
         startActivity(new Intent(this, SingleTouchActivity.class));
         this.finish();
     }
 
-    private void goToModule2() {
+    private void understandHowTouchInterceptWorks() {
         startActivity(new Intent(this, InterceptTouchActivity.class));
         this.finish();
     }

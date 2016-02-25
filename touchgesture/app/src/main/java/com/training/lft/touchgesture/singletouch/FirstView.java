@@ -9,6 +9,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.training.lft.touchgesture.DataHolder;
+
 /**
  * Created by laaptu on 12/14/15.
  */
@@ -70,6 +72,7 @@ public class FirstView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        DataHolder.printEventXY(TAG,event);
         return true;
     }
 }

@@ -3,7 +3,10 @@ package com.training.lft.touchgesture.singletouch;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.widget.FrameLayout;
+
+import com.training.lft.touchgesture.DataHolder;
 
 /**
  * Created by laaptu on 12/14/15.
@@ -24,4 +27,9 @@ public class SecondLayout extends FrameLayout {
         setBackgroundColor(Color.GREEN);
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        DataHolder.printEventXY(TAG,event);
+        return true;
+    }
 }

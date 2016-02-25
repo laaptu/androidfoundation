@@ -90,7 +90,7 @@ public class DynamicFragmentActivity extends AppCompatActivity {
 //            inflater.inflate(R.layout.dynamic_fragment, container,true);
 //            are same thing and both of them will crash, look on the log error to find out
             //at what point the error comes
-            view = inflater.inflate(R.layout.dynamic_fragment, container, false);
+            view = inflater.inflate(R.layout.dynamic_fragment, container, true);
             Timber.d("onCreateView()");
             Timber.d("Container is null =%b", container == null);
             if (container != null) {
