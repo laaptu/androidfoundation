@@ -70,7 +70,7 @@ public class SimpleAdditionTest {
 	// it is in ms
 	@Test(timeout = 200)
 	public void timeOutTest() {
-		System.out.println();
+		System.out.println("timeOutTest()");
 		for (int i = 0; i < 1000000; i++) {
 			int[] dummyArr = { i, i + 1, i - 2 };
 			simpleAddition.sortArrays(dummyArr);
