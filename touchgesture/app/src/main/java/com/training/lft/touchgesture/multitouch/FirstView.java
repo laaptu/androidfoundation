@@ -152,6 +152,8 @@ public class FirstView extends View {
         Timber.d("******************************");
         //this is enough for getting the id
         int pointerIndex = event.getAction() >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+        //this also return the same value as above
+        //int pointerIndex = event.getActionIndex();
         //int pointerIndex1 = (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
         //Timber.d("Pointer 1: Pointer2 =%d:%d", pointerIndex, pointerIndex1);
         int pointerId = event.getPointerId(pointerIndex);

@@ -23,6 +23,7 @@
         <activity android:name=".singletouch.SingleTouchActivity" />
         <activity android:name=".touchintercept.InterceptTouchActivity" />
         <activity android:name=".multitouch.MultiTouchExampleActivity" />
+        <activity android:name=".multitouchimplfirst.MultiTouchCircleActivity" />
     </application>
 
 </manifest>
