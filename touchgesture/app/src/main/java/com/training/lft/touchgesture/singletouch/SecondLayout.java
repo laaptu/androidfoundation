@@ -29,7 +29,7 @@ public class SecondLayout extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        DataHolder.printEventXY(TAG,event);
+        DataHolder.printEventXY(TAG,event,this);
         return true;
     }
 }

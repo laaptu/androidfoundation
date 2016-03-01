@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.training.lft.touchgesture.multitouch.MultiTouchExampleActivity;
 import com.training.lft.touchgesture.singletouch.SingleTouchActivity;
 import com.training.lft.touchgesture.touchintercept.InterceptTouchActivity;
 import com.training.lft.touchgesture.touchpropagation.TouchPropagationActivity;
@@ -14,7 +15,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        understandHowTouchXYWorks();
+        understandBasicMutliTouch();
     }
 
     private void understandHowTouchPropagates() {
@@ -29,6 +30,11 @@ public class SplashActivity extends AppCompatActivity {
 
     private void understandHowTouchInterceptWorks() {
         startActivity(new Intent(this, InterceptTouchActivity.class));
+        this.finish();
+    }
+
+    private void understandBasicMutliTouch() {
+        startActivity(new Intent(this, MultiTouchExampleActivity.class));
         this.finish();
     }
 }

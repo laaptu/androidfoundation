@@ -45,7 +45,7 @@ public class SecondView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        DataHolder.printEventXY(TAG,event);
+        DataHolder.printEventXY(TAG,event,this);
         return true;
     }
 

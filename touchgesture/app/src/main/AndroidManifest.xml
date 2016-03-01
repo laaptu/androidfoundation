@@ -22,6 +22,7 @@
         <activity android:name=".touchpropagation.TouchPropagationActivity" />
         <activity android:name=".singletouch.SingleTouchActivity" />
         <activity android:name=".touchintercept.InterceptTouchActivity" />
+        <activity android:name=".multitouch.MultiTouchExampleActivity" />
     </application>
 
 </manifest>
