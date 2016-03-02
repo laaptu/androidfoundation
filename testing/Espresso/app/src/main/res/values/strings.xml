@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EspressoIntro</string>
+    <string name="txt_value">This is text value</string>
+    <string name="replace_value">Replace Text</string>
 </resources>

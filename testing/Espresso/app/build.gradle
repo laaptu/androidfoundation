@@ -42,4 +42,5 @@ dependencies {
     //for espresso setup
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
 }
