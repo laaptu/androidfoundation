@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".tasko.TaskMainActivity" />
+        <activity android:name=".tasko.TaskMainActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
