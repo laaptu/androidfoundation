@@ -11,10 +11,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        startActivity(new Intent(this, TaskMainActivity.class));
+//        this.finish();
     }
 
-    public void btnClick(View view){
+    public void btnClick(View view) {
         //navigate to next activity
-        Toast.makeText(this,"Button is clicked",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Button is clicked", Toast.LENGTH_SHORT).show();
     }
 }

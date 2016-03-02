@@ -2,4 +2,18 @@
     <string name="app_name">EspressoIntro</string>
     <string name="txt_value">This is text value</string>
     <string name="replace_value">Replace Text</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="main_new">New</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="new_task_task_name">Task Name</string>
+    <string name="new_task_task_description">Task Description</string>
+    <string name="new_task_add">Add</string>
+    <string name="error_new_task_name_required">Task name is required</string>
+    <string name="task_list_no_tasks_found">No Tasks Found! Please create one.</string>
+    <string name="create_a_task">Create A Task</string>
+    <string name="edit">Edit</string>
+    <string name="save">Save</string>
 </resources>
