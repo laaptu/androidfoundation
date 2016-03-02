@@ -10,6 +10,7 @@ import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.widget.TextView;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +18,6 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
@@ -51,9 +51,20 @@ public class MainActivityTest {
     }
 
 
+    /**
+     * What if two view satisfies the matching criteria
+     * Right now it throws AmbiguousViewMatcherException and Espresso
+     * specifies, that onView should return only one view.
+     * Really need to find the solution for it i.e. onView matching
+     * multiple views and we can perform actions on it*/
     @Test
     public void twoOrMoreViewTest() {
-        onView(withText(ResourceUtils.getString(R.string.replace_value))).check(ViewAssertions.matches(isDisplayed()));
+        //this throws error
+        //onView(withText(ResourceUtils.getString(R.string.replace_value))).perform(setTextInTextView(ResourceUtils.getString(R.string.txt_value)));
+        //it shows that we can add multiple check condition or view matcher
+        onView(allOf(withText(ResourceUtils.getString(R.string.replace_value)),withId(R.id.txt_view1))).perform(setTextInTextView(ResourceUtils.getString(R.string.txt_value)));
+        onView(allOf(withText(ResourceUtils.getString(R.string.replace_value)),withId(R.id.txt_view2))).perform(setTextInTextView(ResourceUtils.getString(R.string.txt_value)));
+
     }
 
     //http://stackoverflow.com/questions/32846738/android-testing-espresso-change-text-in-a-textview
@@ -67,11 +78,39 @@ public class MainActivityTest {
              * and second the view must be of TextView*/
             @Override
             public Matcher<View> getConstraints() {
+                //here we are just adding extra constraints like view should be visible and should be of class TextView
+
                 return allOf(ViewMatchers.isDisplayed(), ViewMatchers.isAssignableFrom(TextView.class));
+                //since we already find the view using some matchers, we can simply pass an empty Matcher
+                //return getEmptyMatcher();
+            }
+
+            private Matcher<View> getEmptyMatcher(){
+                return new Matcher<View>() {
+                    @Override
+                    public boolean matches(Object item) {
+                        return true;
+                    }
+
+                    @Override
+                    public void describeMismatch(Object item, Description mismatchDescription) {
+
+                    }
+
+                    @Override
+                    public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+
+                    }
+
+                    @Override
+                    public void describeTo(Description description) {
+
+                    }
+                };
             }
 
             /**
-             * As per Squi blog, it is just used for debugging purpose*/
+             * As per Squi blog, it is said that it is just used for debugging purpose*/
             @Override
             public String getDescription() {
                 return "Normal Text View";
@@ -79,8 +118,10 @@ public class MainActivityTest {
 
             @Override
             public void perform(UiController uiController, View view) {
+                //this is the action that happens
                 ((TextView) view).setText(value);
             }
         };
     }
+
 }
