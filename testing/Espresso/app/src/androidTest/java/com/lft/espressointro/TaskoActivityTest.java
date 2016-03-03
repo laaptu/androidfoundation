@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.lft.espressointro.realmespressocontrib.RealmRecyclerViewActions;
 import com.lft.espressointro.tasko.TaskMainActivity;
 import com.lft.espressointro.tasko.db.DbHelper;
 
@@ -16,7 +17,7 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
-import static android.support.test.espresso.assertion.ViewAssertions.*;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
 
 /**
@@ -57,6 +58,7 @@ public class TaskoActivityTest {
 
     }
 
+    @Ignore
     @Test
     public void addItemAndCheckVisibility() {
         String taskName = "Again add new task";
@@ -72,6 +74,53 @@ public class TaskoActivityTest {
         onView(withId(R.id.new_task_add)).perform(click());
         onView(withText(ResourceUtils.getString(R.string.info_task_added))).check(matches(isDisplayed()));
     }
+
+    /**
+     * This test is demonstrating of adding multiple items on the list view and on database
+     */
+    @Ignore
+    @Test
+    public void addMultipleItemsOnTheList() {
+        String taskName;
+        String taskDescription;
+        for (int i = 0; i < 11; i++) {
+            taskName = "Task " + i;
+            taskDescription = "Description " + i;
+            onView(withId(R.id.menu_main_new_task)).perform(click());
+            onView(withId(R.id.new_task_task_name)).perform(typeText(taskName));
+            onView(withId(R.id.new_task_task_desc)).perform(typeText(taskDescription), closeSoftKeyboard());
+            onView(withId(R.id.new_task_add)).perform(click());
+        }
+    }
+
+    /**
+     * To perform actions on RecyclerView and other appcompat views,
+     * datepickr,drawerlayout,recyclerview
+     * we again need espresso-contrib
+     * http://stackoverflow.com/questions/30578243/why-would-adding-espresso-contrib-cause-an-inflateexception
+     * Further we are again using RealmRecyclerView , so we again
+     * have to add custom view actions
+     */
+    @Test
+    public void addMultipleItemsOnTheListAndScrollToLastItem() {
+        String taskName, taskDescription;
+        for (int i = 0; i < 11; i++) {
+            taskName = "Task " + i;
+            taskDescription = "Description " + i;
+            onView(withId(R.id.menu_main_new_task)).perform(click());
+            onView(withId(R.id.new_task_task_name)).perform(typeText(taskName));
+            onView(withId(R.id.new_task_task_desc)).perform(typeText(taskDescription), closeSoftKeyboard());
+            onView(withId(R.id.new_task_add)).perform(click());
+        }
+
+        onView(withText("Task 0")).check(matches(isDisplayed()));
+        //this comes with espresso-contrib, but we need to add custom ViewActions i.e. custom RecyclerViewActions
+        //onView(withId(R.id.main_task_list)).perform(RecyclerViewActions.scrollToPosition(10));
+        onView(withId(R.id.main_task_list)).perform(RealmRecyclerViewActions.scrollToPosition(10));
+        onView(withText("Task 10")).check(matches(isDisplayed()));
+    }
+
+
 }
 
 
