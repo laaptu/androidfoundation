@@ -23,9 +23,12 @@ public class NewTaskFragment extends BaseFragment {
 
     private static final String TASK_ID = "task_id";
 
-    @Bind(R.id.new_task_add) Button actionButton;
-    @Bind(R.id.new_task_task_name) EditText taskName;
-    @Bind(R.id.new_task_task_desc) EditText taskDesc;
+    @Bind(R.id.new_task_add)
+    Button actionButton;
+    @Bind(R.id.new_task_task_name)
+    EditText taskName;
+    @Bind(R.id.new_task_task_desc)
+    EditText taskDesc;
     @Bind(R.id.new_task_task_name_input_layout)
     TextInputLayout nameInputLayout;
 
@@ -63,7 +66,7 @@ public class NewTaskFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(getArguments() != null && getArguments().getString(TASK_ID) != null) {
+        if (getArguments() != null && getArguments().getString(TASK_ID) != null) {
             // We need to go into edit mode.
             final String id = getArguments().getString(TASK_ID);
             taskToEdit = realm.where(Task.class).equalTo("uuid", id).findFirst();
@@ -80,7 +83,7 @@ public class NewTaskFragment extends BaseFragment {
 
     @OnClick(R.id.new_task_add)
     public void onAddClick(View v) {
-        if(taskToEdit == null) {
+        if (taskToEdit == null) {
             addTask();
         } else {
             editTask();
@@ -95,8 +98,8 @@ public class NewTaskFragment extends BaseFragment {
         taskToEdit.setDescription(taskDesc.getText().toString());
         realm.commitTransaction();
 
-        if(getView() != null) {
-            Snackbar.make(getView(), "Task Updated", Snackbar.LENGTH_LONG).show();
+        if (getView() != null) {
+            Snackbar.make(getView(), getString(R.string.info_task_updated), Snackbar.LENGTH_LONG).show();
         }
 
         getFragmentManager().popBackStack();
@@ -116,14 +119,14 @@ public class NewTaskFragment extends BaseFragment {
 
         realm.commitTransaction();
 
-        if(getView() != null) {
-            Snackbar.make(getView(), "Task Added", Snackbar.LENGTH_LONG).show();
+        if (getView() != null) {
+            Snackbar.make(getView(), getString(R.string.info_task_added), Snackbar.LENGTH_LONG).show();
         }
         getFragmentManager().popBackStack();
     }
 
     private boolean nameIsValid() {
-        if(Strings.isEmpty(taskName.getText())) {
+        if (Strings.isEmpty(taskName.getText())) {
             nameInputLayout.setErrorEnabled(true);
             nameInputLayout.setError(getString(R.string.error_new_task_name_required));
             return true;

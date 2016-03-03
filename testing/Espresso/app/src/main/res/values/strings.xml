@@ -16,4 +16,7 @@
     <string name="create_a_task">Create A Task</string>
     <string name="edit">Edit</string>
     <string name="save">Save</string>
+
+    <string name="info_task_added">Task Added</string>
+    <string name="info_task_updated">Task Updated</string>
 </resources>
