@@ -101,6 +101,7 @@ public class TaskoActivityTest {
      * Further we are again using RealmRecyclerView , so we again
      * have to add custom view actions
      */
+    @Ignore
     @Test
     public void addMultipleItemsOnTheListAndScrollToLastItem() {
         String taskName, taskDescription;
@@ -120,7 +121,38 @@ public class TaskoActivityTest {
         onView(withText("Task 10")).check(matches(isDisplayed()));
     }
 
+    /**
+     * Same as {@code addMultipleItemsOnTheListAndScrollToLastItem},
+     * but we are now using CustomMatchers for that */
+    @Test
+    public void addMulitpleItemsOnListNScrollWithCustomMatchers(){
+        String taskName, taskDescription;
+        for (int i = 0; i < 11; i++) {
+            taskName = "Task " + i;
+            taskDescription = "Description " + i;
+            onView(withId(R.id.menu_main_new_task)).perform(click());
+            onView(withId(R.id.new_task_task_name)).perform(typeText(taskName));
+            onView(withId(R.id.new_task_task_desc)).perform(typeText(taskDescription), closeSoftKeyboard());
+            onView(withId(R.id.new_task_add)).perform(click());
+        }
+
+        onView(withText("Task 0")).check(matches(isDisplayed()));
+        onView(withId(R.id.main_task_list)).perform(RealmRecyclerViewActions.scrollTo(
+                CustomMatchers.withTaskViewName("Task 10")
+        ));
+
+    }
+
+    /**
+     * Working with some custom matchers and going from viewId
+     */
+    @Ignore
+    @Test
+    public void customMatcherTest() {
+        onView(withId(R.id.menu_main_new_task)).perform(click());
+        onView(CustomMatchers.withSomeId(R.id.new_task_add)).perform(click());
+    }
+
 
 }
-
 
