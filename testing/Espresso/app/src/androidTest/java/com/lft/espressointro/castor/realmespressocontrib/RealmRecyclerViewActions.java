@@ -1,4 +1,4 @@
-package com.lft.espressointro.realmespressocontrib;
+package com.lft.espressointro.castor.realmespressocontrib;
 
 import android.support.annotation.Nullable;
 import android.support.test.espresso.Espresso;

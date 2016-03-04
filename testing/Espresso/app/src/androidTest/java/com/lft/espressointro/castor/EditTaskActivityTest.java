@@ -1,9 +1,11 @@
-package com.lft.espressointro;
+package com.lft.espressointro.castor;
 
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.lft.espressointro.realmespressocontrib.RealmRecyclerViewActions;
+import com.lft.espressointro.R;
+import com.lft.espressointro.castor.realmespressocontrib.RealmRecyclerViewActions;
 import com.lft.espressointro.tasko.TaskMainActivity;
 
 import org.junit.Rule;
@@ -29,7 +31,7 @@ public class EditTaskActivityTest {
      */
     @Test
     public void shouldBeAbleToCreateANewTaskAndThenEditTheTask() {
-        onView(withId(R.id.fab)).perform(click());
+        onView(ViewMatchers.withId(R.id.fab)).perform(click());
 
         onView(withId(R.id.new_task_task_name)).perform(click());
         onView(withId(R.id.new_task_task_name)).perform(typeText("Task1"));

@@ -1,11 +1,14 @@
-package com.lft.espressointro;
+package com.lft.espressointro.castor;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.lft.espressointro.realmespressocontrib.RealmRecyclerViewActions;
+import com.lft.espressointro.R;
+import com.lft.espressointro.ResourceUtils;
+import com.lft.espressointro.castor.realmespressocontrib.RealmRecyclerViewActions;
 import com.lft.espressointro.tasko.TaskMainActivity;
 import com.lft.espressointro.tasko.db.DbHelper;
 
@@ -19,7 +22,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static com.lft.espressointro.CustomMatchers.withTaskViewName;
+import static com.lft.espressointro.castor.CustomMatchers.withTaskViewName;
 import static org.hamcrest.Matchers.not;
 
 /**
@@ -42,7 +45,7 @@ public class TaskoActivityTest {
     public void addNewItemTest() {
         final String taskName = "This is new task";
         final String taskDescription = "I am manually adding a new description";
-        onView(withId(R.id.menu_main_new_task)).perform(click());
+        onView(ViewMatchers.withId(R.id.menu_main_new_task)).perform(click());
         onView(withId(R.id.new_task_task_name)).perform(typeText(taskName), closeSoftKeyboard());
         onView(withId(R.id.new_task_task_desc)).perform(typeText(taskDescription), closeSoftKeyboard());
         onView(withId(R.id.new_task_add)).perform(click());
@@ -74,7 +77,7 @@ public class TaskoActivityTest {
          * view action is to be performed*/
         onView(withId(R.id.new_task_task_desc)).perform(typeText(taskDescription), closeSoftKeyboard());
         onView(withId(R.id.new_task_add)).perform(click());
-        onView(withText(ResourceUtils.getString(R.string.info_task_added))).check(matches(isDisplayed()));
+        onView(ViewMatchers.withText(ResourceUtils.getString(R.string.info_task_added))).check(matches(isDisplayed()));
     }
 
     /**

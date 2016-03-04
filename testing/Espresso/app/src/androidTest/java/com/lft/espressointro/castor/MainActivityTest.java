@@ -1,4 +1,4 @@
-package com.lft.espressointro;
+package com.lft.espressointro.castor;
 
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
@@ -9,6 +9,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 import android.view.View;
 import android.widget.TextView;
+
+import com.lft.espressointro.MainActivity;
+import com.lft.espressointro.R;
+import com.lft.espressointro.ResourceUtils;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -45,7 +49,7 @@ public class MainActivityTest {
      * independent of each other*/
     @Test
     public void firstTest() {
-        onView(withId(R.id.btn)).perform(click());
+        onView(ViewMatchers.withId(R.id.btn)).perform(click());
         onView(withId(R.id.txt_view)).perform(setTextInTextView(ResourceUtils.getString(R.string.replace_value)));
         onView(withId(R.id.txt_view)).check(ViewAssertions.matches(withText(ResourceUtils.getString(R.string.replace_value))));
     }

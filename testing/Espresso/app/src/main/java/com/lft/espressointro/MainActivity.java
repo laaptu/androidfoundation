@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lft.espressointro.chiuki.list.SimpleListActivity;
 import com.lft.espressointro.tasko.TaskMainActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,11 +15,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        goToTaskActivity();
+        //goToTaskActivity();
+        goToSimpleListActivity();
     }
 
-    private void goToTaskActivity(){
+    private void goToTaskActivity() {
         startActivity(new Intent(this, TaskMainActivity.class));
+        this.finish();
+    }
+
+    private void goToSimpleListActivity() {
+        startActivity(new Intent(this, SimpleListActivity.class));
         this.finish();
     }
 

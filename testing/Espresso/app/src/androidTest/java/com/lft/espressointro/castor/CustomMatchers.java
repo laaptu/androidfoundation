@@ -1,8 +1,10 @@
-package com.lft.espressointro;
+package com.lft.espressointro.castor;
 
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.TextView;
+
+import com.lft.espressointro.R;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -116,6 +118,31 @@ public class CustomMatchers {
                     return recyclerView.findFirstVisibleItemPosition() != 0;
                 }
                 return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+
+            }
+        };
+    }
+
+
+    public static Matcher<View> getEmptyMatcher(){
+        return new Matcher<View>() {
+            @Override
+            public boolean matches(Object item) {
+                return true;
+            }
+
+            @Override
+            public void describeMismatch(Object item, Description mismatchDescription) {
+
+            }
+
+            @Override
+            public void _dont_implement_Matcher___instead_extend_BaseMatcher_() {
+
             }
 
             @Override

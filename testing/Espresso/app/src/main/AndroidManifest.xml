@@ -19,6 +19,8 @@
 
         <activity android:name=".tasko.TaskMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".chiuki.list.SimpleListActivity"/>
     </application>
 
 </manifest>
