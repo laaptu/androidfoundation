@@ -19,6 +19,8 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static com.lft.espressointro.CustomMatchers.withTaskViewName;
+import static org.hamcrest.Matchers.not;
 
 /**
  * Created by laaptu on 3/3/16.
@@ -123,9 +125,11 @@ public class TaskoActivityTest {
 
     /**
      * Same as {@code addMultipleItemsOnTheListAndScrollToLastItem},
-     * but we are now using CustomMatchers for that */
+     * but we are now using CustomMatchers for that
+     */
+    @Ignore
     @Test
-    public void addMulitpleItemsOnListNScrollWithCustomMatchers(){
+    public void addMulitpleItemsOnListNScrollWithCustomMatchers() {
         String taskName, taskDescription;
         for (int i = 0; i < 11; i++) {
             taskName = "Task " + i;
@@ -153,6 +157,37 @@ public class TaskoActivityTest {
         onView(CustomMatchers.withSomeId(R.id.new_task_add)).perform(click());
     }
 
+    @Ignore
+    @Test
+    public void fabVisibilityTest() {
+        onView(withId(R.id.fab)).check(matches(isDisplayed()));
+        onView(withId(R.id.fab)).perform(click());
+        onView(withId(R.id.fab)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.new_task_task_name)).perform(typeText("Fab visibility"));
+        onView(withId(R.id.new_task_task_desc)).perform(typeText("Writing test to check whether the fab is visible"), closeSoftKeyboard());
+        onView(withId(R.id.new_task_add)).perform(click());
+        onView(withId(R.id.fab)).check(matches(isDisplayed()));
+    }
+
+
+    /**
+     * Testing for editing
+     * this doesn't properly work, check
+     * {@link EditTaskActivityTest}
+     * Specially on performing click on RealmRecyclerView
+     */
+    @Test
+    public void editGivenItem() {
+        onView(withId(R.id.main_task_list)).check(matches(CustomMatchers.doesRecyclerViewHasFirstItem(0)));
+        onView(withId(R.id.fab)).perform(click());
+        onView(withId(R.id.new_task_task_name)).perform(typeText("Fab visibility"));
+        onView(withId(R.id.new_task_task_desc)).perform(typeText("Writing test to check whether the fab is visible"), closeSoftKeyboard());
+        onView(withId(R.id.new_task_add)).perform(click());
+        onView(withId(R.id.main_task_list)).perform(RealmRecyclerViewActions.actionOnItem(withTaskViewName("Fab visibility"), click()));
+        onView(withId(R.id.new_task_task_name)).perform(typeText("Fab visibility 1"));
+        onView(withId(R.id.new_task_task_desc)).perform(typeText("Writing test to check whether the fab is visible1"), closeSoftKeyboard());
+        onView(withId(R.id.new_task_add)).perform(click());
+    }
 
 }
 

@@ -8,6 +8,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
+
 /**
  * Created by laaptu on 3/3/16.
  */
@@ -98,4 +100,30 @@ public class CustomMatchers {
             }
         };
     }
+
+    /**
+     * This matcher is not accurate at all
+     * Just wanted to know if any item has been added to RealmRecyclerView or not
+     * Checking with findFirstVisibleItemPosition !=0, rather it should be
+     * recycler view , getAdapter --> count ==0, seems like , there needs to
+     * be some thing done on RealmRecyclerView to getAdapter(), will look on it later*/
+    public static Matcher<View> doesRecyclerViewHasFirstItem(final int position) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                if (item != null && item instanceof RealmRecyclerView) {
+                    RealmRecyclerView recyclerView = (RealmRecyclerView) item;
+                    return recyclerView.findFirstVisibleItemPosition() != 0;
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+
+            }
+        };
+    }
+
+
 }

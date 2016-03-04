@@ -8,6 +8,7 @@ import io.realm.RealmConfiguration;
 
 /**
  * Created by laaptu on 3/2/16.
+ * https://github.com/CasterIO/Tasko
  */
 public class MainApplication extends Application {
 
