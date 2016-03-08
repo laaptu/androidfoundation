@@ -23,6 +23,7 @@
 
         <activity android:name=".chiuki.list.SimpleListActivity"/>
         <activity android:name=".chiuki.recylerview.RecyclerViewActivity"/>
+        <activity android:name=".chiuki.rotatescreen.RotateActivity"/>
     </application>
 
 </manifest>

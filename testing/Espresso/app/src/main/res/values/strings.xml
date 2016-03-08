@@ -19,4 +19,5 @@
 
     <string name="info_task_added">Task Added</string>
     <string name="info_task_updated">Task Updated</string>
+    <string name="increment">Increment</string>
 </resources>
