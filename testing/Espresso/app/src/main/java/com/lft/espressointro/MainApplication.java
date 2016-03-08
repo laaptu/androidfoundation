@@ -5,6 +5,7 @@ import android.content.Context;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import timber.log.Timber;
 
 /**
  * Created by laaptu on 3/2/16.
@@ -19,6 +20,7 @@ public class MainApplication extends Application {
         super.onCreate();
         context = this;
         initRealmConfig(this);
+        Timber.plant(new Timber.DebugTree());
     }
 
     public static Context getContext() {

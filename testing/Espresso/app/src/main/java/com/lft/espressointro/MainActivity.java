@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.lft.espressointro.chiuki.list.SimpleListActivity;
+import com.lft.espressointro.chiuki.recylerview.RecyclerViewActivity;
 import com.lft.espressointro.tasko.TaskMainActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //goToTaskActivity();
-        goToSimpleListActivity();
+        //goToSimpleListActivity();
+        goToRecyclerViewActivity();
     }
 
     private void goToTaskActivity() {
@@ -32,5 +34,10 @@ public class MainActivity extends AppCompatActivity {
     public void btnClick(View view) {
         //navigate to next activity
         Toast.makeText(this, "Button is clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    private void goToRecyclerViewActivity(){
+        startActivity(RecyclerViewActivity.launchActivity(this,10));
+        this.finish();
     }
 }
