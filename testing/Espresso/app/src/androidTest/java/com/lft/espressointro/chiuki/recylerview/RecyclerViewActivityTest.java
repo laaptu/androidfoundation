@@ -9,10 +9,13 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 import com.lft.espressointro.R;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -76,13 +79,67 @@ public class RecyclerViewActivityTest {
         activityTestRule.launchActivity(RecyclerViewActivity.launchActivity(targetContext, 10));
     }
 
-    @Ignore
+
     @Test
     public void someRecyclerTest1() {
+
+        for(int i=0;i<5;i++) {
         onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(20, click()));
         onView(withId(R.id.text)).check(matches(allOf(isDisplayed(), withText("20"))));
+
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItem(getItemMatcher(29), click()));
+        onView(withId(R.id.text)).check(matches(allOf(isDisplayed(), withText("29"))));
+
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnHolderItem(getViewHolderMatcher(0), click()));
+        onView(withId(R.id.text)).check(matches(allOf(isDisplayed(), withText("0"))));
+
+        //or you can combine all three actions or more on perform
+//        onView(withId(R.id.recycler_view)).
+//                perform(RecyclerViewActions.actionOnItemAtPosition(20, click()),
+//                        RecyclerViewActions.actionOnItem(getItemMatcher(29), click()),
+//                        RecyclerViewActions.actionOnHolderItem(getViewHolderMatcher(0), click()));
+        }
+
     }
 
+
+    public Matcher<RecyclerView.ViewHolder> getViewHolderMatcher(final int position) {
+        return new TypeSafeMatcher<RecyclerView.ViewHolder>() {
+            @Override
+            protected boolean matchesSafely(RecyclerView.ViewHolder item) {
+                if (item instanceof TextViewHolder) {
+                    return ((TextViewHolder) item).textView.getText().toString().equals(String.valueOf(position));
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Matching with viewholder the value of " + String.valueOf(position));
+            }
+        };
+    }
+
+
+    public Matcher<View> getItemMatcher(final int position) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                if (item.getId() == android.R.id.text1 && item instanceof TextView) {
+                    return ((TextView) item).getText().toString().equals(String.valueOf(position));
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("Matching with ViewHolder layout values");
+
+            }
+        };
+    }
+
+    @Ignore
     @Test
     public void recyclerViewScrollTest() {
         for (int i = 0; i < 30; i++) {
@@ -99,7 +156,7 @@ public class RecyclerViewActivityTest {
             @Override
             public Matcher<View> getConstraints() {
                 //just checking whether thew view is recyclerview and is displayed
-                return allOf(isAssignableFrom(RecyclerView.class),isDisplayed());
+                return allOf(isAssignableFrom(RecyclerView.class), isDisplayed());
             }
 
             @Override
