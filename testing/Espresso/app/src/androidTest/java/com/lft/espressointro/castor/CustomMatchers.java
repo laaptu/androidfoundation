@@ -1,6 +1,8 @@
 package com.lft.espressointro.castor;
 
 import android.content.res.Resources;
+import android.support.test.espresso.matcher.BoundedMatcher;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -108,7 +110,8 @@ public class CustomMatchers {
      * Just wanted to know if any item has been added to RealmRecyclerView or not
      * Checking with findFirstVisibleItemPosition !=0, rather it should be
      * recycler view , getAdapter --> count ==0, seems like , there needs to
-     * be some thing done on RealmRecyclerView to getAdapter(), will look on it later*/
+     * be some thing done on RealmRecyclerView to getAdapter(), will look on it later
+     */
     public static Matcher<View> doesRecyclerViewHasFirstItem(final int position) {
         return new TypeSafeMatcher<View>() {
             @Override
@@ -128,7 +131,7 @@ public class CustomMatchers {
     }
 
 
-    public static Matcher<View> getEmptyMatcher(){
+    public static Matcher<View> getEmptyMatcher() {
         return new Matcher<View>() {
             @Override
             public boolean matches(Object item) {
@@ -147,6 +150,46 @@ public class CustomMatchers {
 
             @Override
             public void describeTo(Description description) {
+
+            }
+        };
+    }
+
+    /**
+     * Trying to find out difference or to say importance between
+     * BoundedMatcher and Simple TypeSafe Matcher
+     * The simple diff is that in BoundMatcher we can easily
+     * get the Toolbar on matchesSafely i.e. we don't have to typecast
+     * or do anything.
+     */
+    //Chiuki BoundedMatcherImplementation on Toolbar title test
+    public static Matcher<Object> withToolbarTitle(final Matcher<CharSequence> textMatcher) {
+        return new BoundedMatcher<Object, Toolbar>(Toolbar.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with toolbar title:");
+                textMatcher.describeTo(description);
+
+            }
+
+            @Override
+            protected boolean matchesSafely(Toolbar item) {
+                return textMatcher.matches(item.getTitle());
+            }
+        };
+    }
+
+    public static Matcher<View> withToolbarTitleNoBound(final Matcher<CharSequence> textMatcher) {
+        return new TypeSafeMatcher<View>() {
+            @Override
+            protected boolean matchesSafely(View item) {
+                return textMatcher.matches(((Toolbar)item).getTitle());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("with toolbar title:");
+                textMatcher.describeTo(description);
 
             }
         };
