@@ -67,13 +67,20 @@ public class SimpleListActivityTest {
         }
 
 
-
-
     }
 
 
     private ViewAction getScrollAction(final int value) {
         return new ViewAction() {
+            /**
+             * This is extra matcher. Meaning
+             * you will get the view that matches your criteria,
+             * but you still want to recheck some extra params like
+             * the view must be a ListView ( check scrollTo view actions
+             * of Espresso) or the view must be visible ( as most of the
+             * Espresso actions are performed to a visible view). In this
+             * case we are just leaving to blank i.e. we are not checking any
+             * criteria*/
             @Override
             public Matcher<View> getConstraints() {
                 return CustomMatchers.getEmptyMatcher();
@@ -84,6 +91,13 @@ public class SimpleListActivityTest {
                 return null;
             }
 
+
+            /**
+             * Here we get a view that matches our criteria
+             * .So we know our view is a ListView, so just simply
+             * perform actions to a listview. Meaning in this portion
+             * we get our view and we all know what that view actions can be
+             * so it is upto you to identify what actions are you going to perform*/
             @Override
             public void perform(UiController uiController, View view) {
                 if (view instanceof ListView) {
