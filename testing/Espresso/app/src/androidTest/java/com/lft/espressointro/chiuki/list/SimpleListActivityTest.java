@@ -20,6 +20,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import timber.log.Timber;
+
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
@@ -97,9 +99,11 @@ public class SimpleListActivityTest {
              * .So we know our view is a ListView, so just simply
              * perform actions to a listview. Meaning in this portion
              * we get our view and we all know what that view actions can be
-             * so it is upto you to identify what actions are you going to perform*/
+             * so it is upto you to identify what actions are you going to perform
+             * So if our matchers is good, we will only get a single view out here*/
             @Override
             public void perform(UiController uiController, View view) {
+                Timber.d("View id =%d", view.getId());
                 if (view instanceof ListView) {
                     ListView listView = (ListView) view;
                     ArrayAdapter<SimpleListActivity.Item> arrayAdapter = (ArrayAdapter<SimpleListActivity.Item>) listView.getAdapter();
