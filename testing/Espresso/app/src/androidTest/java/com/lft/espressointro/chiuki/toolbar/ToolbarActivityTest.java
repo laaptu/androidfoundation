@@ -32,5 +32,7 @@ public class ToolbarActivityTest {
         onView(isAssignableFrom(Toolbar.class)).check(
                 matches(CustomMatchers.withToolbarTitleNoBound(is(title)))
         );
+
+
     }
 }

@@ -13,6 +13,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
+import timber.log.Timber;
 
 /**
  * Created by laaptu on 3/3/16.
@@ -183,7 +184,7 @@ public class CustomMatchers {
         return new TypeSafeMatcher<View>() {
             @Override
             protected boolean matchesSafely(View item) {
-                return textMatcher.matches(((Toolbar)item).getTitle());
+                return textMatcher.matches(((Toolbar) item).getTitle());
             }
 
             @Override
@@ -194,6 +195,50 @@ public class CustomMatchers {
             }
         };
     }
+
+
+    public static Matcher<String> isValidTest() {
+        return new TypeSafeMatcher<String>() {
+            @Override
+            protected boolean matchesSafely(String item) {
+                Timber.d("Matches Safely item =%s",item);
+                return item != null && item.length()>3 && item.contains("Task");
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("someMinorDescription");
+            }
+        };
+    }
+
+//    public static Matcher<View> withText(String text) {
+//        return withText(is(text));
+//    }
+//
+//    /**
+//     * Returns a matcher that matches {@link TextView}s based on text property value. Note: View's
+//     * text property is never null. If you setText(null) it will still be "". Do not use null matcher.
+//     *
+//     * @param stringMatcher
+//     *     <a href="http://hamcrest.org/JavaHamcrest/javadoc/1.3/org/hamcrest/Matcher.html">
+//     *     <code>Matcher</code></a> of {@link String} with text to match
+//     */
+//    public static Matcher<View> withText(final Matcher<String> stringMatcher) {
+//        checkNotNull(stringMatcher);
+//        return new BoundedMatcher<View, TextView>(TextView.class) {
+//            @Override
+//            public void describeTo(Description description) {
+//                description.appendText("with text: ");
+//                stringMatcher.describeTo(description);
+//            }
+//
+//            @Override
+//            public boolean matchesSafely(TextView textView) {
+//                return stringMatcher.matches(textView.getText().toString());
+//            }
+//        };
+//    }
 
 
 }

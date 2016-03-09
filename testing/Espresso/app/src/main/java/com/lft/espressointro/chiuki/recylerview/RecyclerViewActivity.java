@@ -34,12 +34,22 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+
         final TextView textView = (TextView) findViewById(R.id.text);
         textView.setBackgroundColor(Color.LTGRAY);
         textView.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        //adapter
+
+
         recyclerView.setAdapter(new NumberedAdapter(30, new NumberedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
