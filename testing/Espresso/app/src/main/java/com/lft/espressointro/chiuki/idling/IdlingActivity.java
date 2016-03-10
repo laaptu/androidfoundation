@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.lft.espressointro.R;
+import com.lft.espressointro.ResourceUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -34,12 +35,12 @@ public class IdlingActivity extends AppCompatActivity {
         asyncHttpClient.get(this, URL, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                onResult("Success on getting data");
+                onResult(ResourceUtils.getString(R.string.info_load_success));
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                onResult("Failure on gettting data");
+                onResult(ResourceUtils.getString(R.string.info_load_failure));
 
             }
         });
