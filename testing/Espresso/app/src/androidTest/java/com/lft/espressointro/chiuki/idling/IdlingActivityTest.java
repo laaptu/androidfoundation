@@ -2,6 +2,8 @@ package com.lft.espressointro.chiuki.idling;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.UiController;
+import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -21,6 +23,7 @@ import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static org.hamcrest.core.AllOf.allOf;
 
 /**
  * Created by laaptu on 3/10/16.
@@ -42,8 +45,29 @@ public class IdlingActivityTest {
     public void someIdlingTest() {
 
         onView(withId(R.id.btn_load)).perform(click());
+        //onView(withId(R.id.info_txt)).perform(addTextAction());
         onView(withId(R.id.info_txt)).check(matches(doesContainText()));
 
+    }
+
+    private ViewAction addTextAction() {
+        return new ViewAction() {
+            @Override
+            public Matcher<View> getConstraints() {
+                return allOf(isAssignableFrom(TextView.class), isDisplayed());
+            }
+
+            @Override
+            public String getDescription() {
+                return "Adding some text action to the textview";
+            }
+
+            @Override
+            public void perform(UiController uiController, View view) {
+                ((TextView) view).setText(context.getString(R.string.info_load_failure));
+
+            }
+        };
     }
 
     private Matcher<View> doesContainText() {
