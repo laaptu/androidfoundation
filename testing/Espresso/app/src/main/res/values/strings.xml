@@ -21,4 +21,6 @@
     <string name="info_task_updated">Task Updated</string>
     <string name="increment">Increment</string>
     <string name="my_title">Toolbar</string>
+    
+    <string name="add_text">Add Text</string>
 </resources>

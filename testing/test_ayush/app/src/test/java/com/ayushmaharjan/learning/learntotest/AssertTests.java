@@ -2,6 +2,7 @@ package com.ayushmaharjan.learning.learntotest;
 
 import org.hamcrest.core.CombinableMatcher;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -78,6 +79,7 @@ public class AssertTests {
         assertThat(Arrays.asList("one", "two", "three"), hasItems("one", "three"));
     }
 
+    @Ignore
     @Test
     public void testAssertThatEveryItemContainsString() {
         assertThat(Arrays.asList(new String[] { "fun", "ban", "net" }), everyItem(containsString("n")));
@@ -89,6 +91,7 @@ public class AssertTests {
     @Test
     public void testAssertThatHamcrestCoreMatchers() {
         assertThat("good", allOf(equalTo("good"), startsWith("good")));
+        //assertEquals("good",allOf(equalTo("good"), startsWith("good")));
         /**
          * This is similar to this
          * if good.equals(good) && good.equals(bad)

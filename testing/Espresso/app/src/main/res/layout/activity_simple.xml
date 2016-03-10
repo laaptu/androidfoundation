@@ -5,15 +5,20 @@
               android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_load"
+        android:id="@+id/btn_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Load Data"
+        android:text="@string/add_text"
         android:onClick="btnClick"/>
+
+    <EditText
+        android:id="@+id/info_edittxt"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
 
     <TextView
         android:id="@+id/info_txt"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
 
+import com.lft.espressointro.chiuki.idling.IdlingActivity;
 import com.lft.espressointro.chiuki.list.SimpleListActivity;
 import com.lft.espressointro.chiuki.recylerview.RecyclerViewActivity;
 import com.lft.espressointro.chiuki.rotatescreen.RotateActivity;
@@ -20,7 +21,19 @@ public class MainActivity extends AppCompatActivity {
         //goToTaskActivity();
         //goToSimpleListActivity();
 //        goToRecyclerViewActivity();
-        goToRotateActivity();
+//        goToRotateActivity();
+//        goToSimpleActivity();
+        goToIdlingActivity();
+    }
+
+    private void goToIdlingActivity() {
+        startActivity(new Intent(this, IdlingActivity.class));
+        this.finish();
+    }
+
+    private void goToSimpleActivity() {
+        startActivity(new Intent(this, SimpleActivity.class));
+        this.finish();
     }
 
     private void goToTaskActivity() {
