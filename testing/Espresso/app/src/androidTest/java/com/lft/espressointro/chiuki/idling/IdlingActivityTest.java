@@ -2,6 +2,7 @@ package com.lft.espressointro.chiuki.idling;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
 import android.support.test.espresso.matcher.BoundedMatcher;
@@ -84,5 +85,39 @@ public class IdlingActivityTest {
                         || item.getText().toString().equals(context.getString(R.string.info_load_failure));
             }
         };
+    }
+
+    //some Idling class
+    public class SomeIdlingResource implements IdlingResource {
+
+        private final long startTime;
+        private final long waitingTime;
+        private ResourceCallback resourceCallback;
+
+        public SomeIdlingResource(long waitingTime) {
+            startTime = System.currentTimeMillis();
+            this.waitingTime = waitingTime;
+        }
+
+        @Override
+        public String getName() {
+            return "This must be a unique name";
+        }
+
+        @Override
+        public boolean isIdleNow() {
+            //here you must add your logic
+            //so that Espresso checks whether to proceed to next step or not
+            long elapsedTime = System.currentTimeMillis() - startTime;
+            boolean isIdle = elapsedTime >= waitingTime;
+            if (isIdle)
+                resourceCallback.onTransitionToIdle();
+            return isIdle;
+        }
+
+        @Override
+        public void registerIdleTransitionCallback(ResourceCallback callback) {
+            resourceCallback = callback;
+        }
     }
 }
