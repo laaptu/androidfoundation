@@ -43,6 +43,7 @@ public class EditTaskActivityTest {
         onView(withId(R.id.new_task_task_desc)).perform(click());
         onView(withId(R.id.new_task_task_desc)).perform(typeText("Description1"), closeSoftKeyboard());
 
+
         if(true){
             onView(withText("Task1")).check(matches(isDisplayed()));
             onView(withText(CustomMatchers.isValidTest())).check(matches(isDisplayed()));
