@@ -26,4 +26,7 @@
 
     <string name="info_load_success">Successfully loaded data</string>
     <string name="info_load_failure">Error loading data</string>
+
+    <string name="info_net_connected">Internet is present</string>
+    <string name="info_net_disconnected">Internet is not present</string>
 </resources>

@@ -10,6 +10,7 @@ import com.lft.espressointro.chiuki.idling.IdlingActivity;
 import com.lft.espressointro.chiuki.list.SimpleListActivity;
 import com.lft.espressointro.chiuki.recylerview.RecyclerViewActivity;
 import com.lft.espressointro.chiuki.rotatescreen.RotateActivity;
+import com.lft.espressointro.mockito.LoadDataActivity;
 import com.lft.espressointro.tasko.TaskMainActivity;
 import com.lft.espressointro.twoactivities.ActivityFirst;
 
@@ -25,7 +26,13 @@ public class MainActivity extends AppCompatActivity {
 //        goToRotateActivity();
 //        goToSimpleActivity();
 //        goToIdlingActivity();
-        goToTwoActivities();
+//        goToTwoActivities();
+        goToLoadDataActivity();
+    }
+
+    private void goToLoadDataActivity() {
+        startActivity(new Intent(this, LoadDataActivity.class));
+        this.finish();
     }
 
     private void goToTwoActivities() {

@@ -66,5 +66,8 @@ dependencies {
 
     //for mockito setup
     androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    //these are needed for to run test on android i.e. to mock Android classes
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
     testCompile 'org.mockito:mockito-core:1.10.19'
 }

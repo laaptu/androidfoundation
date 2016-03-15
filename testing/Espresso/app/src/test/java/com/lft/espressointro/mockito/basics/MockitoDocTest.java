@@ -121,7 +121,6 @@ public class MockitoDocTest {
 
     }
 
-    @Ignore
     @Test
     public void diffBetweenMockNSpy() {
 //        Person spyPerson = new Person("Spy",10);
@@ -187,7 +186,7 @@ public class MockitoDocTest {
         Bartender.Drink drink = bar.buyDrink();
         Assert.assertEquals(drink, Bartender.Drink.CockTail);
     }
-
+    @Ignore
     @Test
     public void testWithSomeSettings(){
         Bartender bartender = Mockito.mock(Bartender.class);
