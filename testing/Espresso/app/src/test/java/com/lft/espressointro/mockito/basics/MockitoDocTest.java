@@ -78,7 +78,7 @@ public class MockitoDocTest {
 //        Mockito.verifyZeroInteractions(somePerson,otherPerson,person);
     }
 
-    @Ignore
+
     @Test
     public void usingAnswerTest() {
         //looks like for answering,
@@ -111,9 +111,23 @@ public class MockitoDocTest {
                 String passedArgument = (String) args[0];
                 System.out.println("Passed Argument " + passedArgument);
                 somePerson.setName((String) args[0]);
-                return args[0];
+                return "NULLS";
             }
         }).when(person).addName(Matchers.anyString());
+
+        Person person1 = new Person("Twenty", 20);
+        person1.spyMyMethod();
+        person1 =Mockito.spy(person1);
+
+        Mockito.doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+                System.out.println("I am mocking an answer");
+                return null;
+            }
+        }).when(person1).spyMyMethod();
+
+        person1.spyMyMethod();
 
         person.setName("Arnold");
         person.addName("Hello");
@@ -121,6 +135,7 @@ public class MockitoDocTest {
 
     }
 
+    @Ignore
     @Test
     public void diffBetweenMockNSpy() {
 //        Person spyPerson = new Person("Spy",10);
@@ -173,7 +188,7 @@ public class MockitoDocTest {
      * Seems like it is doing when() type,
      * but it is just like a syntax, so that it will be
      * easier to write test ( just an assumption)
-     * */
+     */
 
     @Ignore
     @Test
@@ -186,9 +201,10 @@ public class MockitoDocTest {
         Bartender.Drink drink = bar.buyDrink();
         Assert.assertEquals(drink, Bartender.Drink.CockTail);
     }
+
     @Ignore
     @Test
-    public void testWithSomeSettings(){
+    public void testWithSomeSettings() {
         Bartender bartender = Mockito.mock(Bartender.class);
         Bar bar = new Bar(bartender);
 
@@ -197,6 +213,13 @@ public class MockitoDocTest {
         bar.buyDrink();
         //similar to timeout( ) we can write our own settings for verification
         //Couldn't understand timeout concept right now
-        Mockito.verify(bartender,Mockito.timeout(2000)).askForRandomDrink();
+        Mockito.verify(bartender, Mockito.timeout(2000)).askForRandomDrink();
+    }
+
+    @Ignore
+    @Test
+    public void someStaticTest() {
+        //Mockito.mo
+        //Left to work with PowerMock
     }
 }

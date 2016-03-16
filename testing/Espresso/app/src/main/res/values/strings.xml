@@ -29,4 +29,6 @@
 
     <string name="info_net_connected">Internet is present</string>
     <string name="info_net_disconnected">Internet is not present</string>
+
+    <string name="result_value">This is just a result value</string>
 </resources>

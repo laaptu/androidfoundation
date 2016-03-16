@@ -32,9 +32,9 @@ public class Person {
 
     }
 
-    public Person() {
-
-    }
+//    public Person() {
+//
+//    }
 
     public void manipulateAgeNName(int age) {
         manipulateAgeNName(age, String.valueOf(age));
@@ -59,6 +59,12 @@ public class Person {
         if (this.name == null)
             this.name = "NULL ";
         this.name += name;
+    }
+
+    public void spyMyMethod() {
+        this.name = "Spying";
+        this.age = 7;
+        System.out.println("Are you spying me?");
     }
 
 }

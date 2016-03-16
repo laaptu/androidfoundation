@@ -1,5 +1,7 @@
 package com.lft.espressointro.mockito.basics;
 
+import com.lft.espressointro.mockito.Dummy;
+
 import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -45,7 +47,7 @@ public class PersonCheckerTest {
 
     }
 
-    @Ignore
+
     @Test
     public void mockTestWithMultipleReturnValues() {
         Person person = Mockito.mock(Person.class);
@@ -63,7 +65,7 @@ public class PersonCheckerTest {
          * with getAge() till it begin to only give out 50,
          * and then run the above code, the test case will fail
          * as not the getAge() will only return 50*/
-        System.out.println("Hello");
+         System.out.println("Hello");
         Assert.assertEquals(20, person.getAge());
         Assert.assertEquals(30, person.getAge());
         Assert.assertEquals(40, person.getAge());
@@ -75,14 +77,20 @@ public class PersonCheckerTest {
     @Mock
     Person mockPerson;
 
+    @Mock
+    Dummy dummy;
+
     @Ignore
     @Test
     public void workWithMockPerson() {
         Mockito.when(mockPerson.getName()).thenReturn("Hello");
+        Mockito.when(dummy.getDummyValue()).thenReturn(10);
         Assert.assertEquals("Hello", mockPerson.getName());
+        Assert.assertEquals(10,dummy.getDummyValue());
     }
 
     //Verification Test
+    @Ignore
     @Test
     public void verificationTest() {
         Mockito.when(mockPerson.getName()).thenReturn("John");

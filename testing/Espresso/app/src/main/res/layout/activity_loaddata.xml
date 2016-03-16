@@ -11,6 +11,20 @@
         android:onClick="btnClick"
         android:text="Is Net On?"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_second"
+        android:text="Go to second activity"
+        android:onClick="goToSecondActivity"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_camera"
+        android:text="Click pictures"
+        android:onClick="clickPic"/>
+
     <TextView
         android:id="@+id/txt_info"
         android:layout_width="match_parent"

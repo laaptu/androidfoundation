@@ -34,7 +34,7 @@
         <activity android:name=".twoactivities.ActivityFirst" />
         <activity android:name=".twoactivities.SecondActivity" />
 
-        <activity android:name=".mockito.LoadDataActivity"/>
+        <activity android:name=".intent.LoadDataActivity"/>
     </application>
 
 </manifest>
